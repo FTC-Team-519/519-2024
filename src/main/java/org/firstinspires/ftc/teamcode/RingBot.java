@@ -133,6 +133,7 @@ public class RingBot extends LinearOpMode {
             double max;
 
             // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
+            //axial is usually negative but here it is negative because it quicker to fix it this way
             double axial   = gamepad1.left_stick_y;
             double lateral =  gamepad1.left_stick_x;
             double yaw     =  gamepad1.right_stick_x;

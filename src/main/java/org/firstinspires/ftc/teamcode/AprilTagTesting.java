@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.annotation.SuppressLint;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -72,6 +73,7 @@ public class AprilTagTesting extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
+    private boolean hasSeen = false;
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     /**
@@ -84,9 +86,9 @@ public class AprilTagTesting extends LinearOpMode {
      */
     private VisionPortal visionPortal;
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void runOpMode() {
-
         initAprilTag();
         leftFrontDrive  = hardwareMap.get(DcMotor.class, "frontLeft");
         leftBackDrive  = hardwareMap.get(DcMotor.class, "backLeft");
@@ -108,11 +110,35 @@ public class AprilTagTesting extends LinearOpMode {
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 double max;
-                double axial   = gamepad1.left_stick_y;
+                double axial   = -gamepad1.left_stick_y;
                 double lateral =  gamepad1.left_stick_x;
                 double yaw     =  gamepad1.right_stick_x;
 
+                double storeYawOffset;
+
                 telemetryAprilTag();
+
+                List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+
+                for (AprilTagDetection detection : currentDetections) {
+                    if(detection.metadata!=null){
+                        if (!hasSeen && detection.ftcPose.yaw != 0) {
+                            hasSeen = true;
+                        } else if (hasSeen && detection.ftcPose.yaw != 0) {
+                            if (detection.ftcPose.yaw > 0) {
+                                axial = -1;
+                            } else if (detection.ftcPose.yaw < 0) {
+                                axial = 1;
+                            }
+                        }
+                        telemetry.addLine(String.format("Seen; %6.1b", hasSeen));
+                        telemetry.addLine(String.format("Yaw %6.1f (deg)", detection.ftcPose.yaw));
+                    }
+                    else{
+                        hasSeen = false;
+                    }
+                }
+
 
                 double leftFrontPower  = axial + lateral + yaw;
                 double rightFrontPower = axial - lateral - yaw;

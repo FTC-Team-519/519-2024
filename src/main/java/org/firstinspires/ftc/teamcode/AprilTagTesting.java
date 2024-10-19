@@ -120,15 +120,19 @@ public class AprilTagTesting extends LinearOpMode {
 
                 List<AprilTagDetection> currentDetections = aprilTag.getDetections();
                 for (AprilTagDetection detection : currentDetections) {
-                    if(detection.metadata!=null){
-                        if (!hasSeen && detection.ftcPose.yaw != 0) {
+                    if(detection.metadata!=null){ // Only allows if there actually are tags
+                        if (!hasSeen) {
                             hasSeen = true;
-                        } else if (hasSeen && detection.ftcPose.yaw != 0) {
+                        } else if (hasSeen) {
+
                             if (detection.ftcPose.yaw > 0) {
-                                axial = -1;
-                            } else if (detection.ftcPose.yaw < 0) {
-                                axial = 1;
+                                axial = -0.25;
                             }
+                            else if (detection.ftcPose.yaw < 0) {
+                                axial = 0.25;
+
+                            }
+
                         }
                         telemetry.addLine(String.format("Seen; %6.1b", hasSeen));
                         telemetry.addLine(String.format("Yaw %6.1f (deg)", detection.ftcPose.yaw));

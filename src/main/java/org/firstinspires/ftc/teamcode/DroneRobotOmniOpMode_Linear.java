@@ -96,7 +96,7 @@ public class DroneRobotOmniOpMode_Linear extends LinearOpMode {
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses START)
@@ -124,7 +124,7 @@ public class DroneRobotOmniOpMode_Linear extends LinearOpMode {
             double rightBackPower  = axial + lateral - yaw;
 
             if (frontRightWheel){
-                rightBackDrive.setPower(1.0);
+                rightFrontDrive.setPower(1.0);
             }
 
             // Normalize the values so no wheel power exceeds 100%

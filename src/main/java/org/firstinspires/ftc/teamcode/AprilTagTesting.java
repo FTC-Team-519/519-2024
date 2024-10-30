@@ -74,6 +74,7 @@ public class AprilTagTesting extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
     private boolean hasSeen = false;
+    private double initOffset;
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     /**
@@ -95,8 +96,8 @@ public class AprilTagTesting extends LinearOpMode {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "frontRight");
         rightBackDrive = hardwareMap.get(DcMotor.class, "backRight");
 
-        leftFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
 
@@ -128,15 +129,16 @@ public class AprilTagTesting extends LinearOpMode {
                     if(detection.metadata!=null){ // Only allows if there actually are tags
                         if (!hasSeen) {
                             hasSeen = true;
-                        } else if (hasSeen) {
+                            initOffset = detection.ftcPose.x;
+                        } else {
 
-                            if (detection.ftcPose.yaw > 0) {
+                            if (detection.ftcPose.x<initOffset/2) {
                                 axial = -0.25;
                             }
-                            else if (detection.ftcPose.yaw < 0) {
-                                axial = 0.25;
-
+                            else {
+                                axial = 0;
                             }
+
 
                         }
                         telemetry.addLine(String.format("Seen; %6.1b", hasSeen));

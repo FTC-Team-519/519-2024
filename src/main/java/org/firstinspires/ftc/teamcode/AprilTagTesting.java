@@ -38,6 +38,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDir
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagMetadata;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
@@ -75,6 +76,7 @@ public class AprilTagTesting extends LinearOpMode {
     private DcMotor rightBackDrive = null;
     private boolean hasSeen = false;
     private double initOffset;
+    private AprilTagMetadata undoFunnyOne;
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     /**
@@ -127,7 +129,7 @@ public class AprilTagTesting extends LinearOpMode {
                 List<AprilTagDetection> currentDetections = aprilTag.getDetections();
                 for (AprilTagDetection detection : currentDetections) {
                     if(detection.metadata!=null){ // Only allows if there actually are tags
-                        if (!hasSeen) {
+                        if (!hasSeen && detection.metadata!=undoFunnyOne) {
                             hasSeen = true;
                             initOffset = detection.ftcPose.x;
                         } else {
@@ -137,6 +139,8 @@ public class AprilTagTesting extends LinearOpMode {
                             }
                             else {
                                 axial = 0;
+                                hasSeen = false;
+                                undoFunnyOne = detection.metadata;
                             }
 
 

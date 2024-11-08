@@ -213,32 +213,8 @@ public class AprilTagLocalization extends LinearOpMode {
      * Add telemetry about AprilTag detections.
      */
     private void telemetryAprilTag() {
-
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        telemetry.addData("# AprilTags Detected", currentDetections.size());
-
-        // Step through the list of detections and display info for each one.
-        for (AprilTagDetection detection : currentDetections) {
-            if (detection.metadata != null) {
-                telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
-                telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)",
-                        detection.robotPose.getPosition().x,
-                        detection.robotPose.getPosition().y,
-                        detection.robotPose.getPosition().z));
-                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)",
-                        detection.robotPose.getOrientation().getPitch(AngleUnit.DEGREES),
-                        detection.robotPose.getOrientation().getRoll(AngleUnit.DEGREES),
-                        detection.robotPose.getOrientation().getYaw(AngleUnit.DEGREES)));
-            } else {
-                telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
-                telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
-            }
-        }   // end for() loop
-
-        // Add "key" information to telemetry
-        telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-        telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
-
+        Position roboLoco = getLocationFromAprilTags();
+        telemetry.addLine("X: " + roboLoco.x+" Y: "+roboLoco.y+" Z: "+roboLoco.z);
     }   // end method telemetryAprilTag()
 
     public Position getLocationFromAprilTags() {
@@ -248,9 +224,13 @@ public class AprilTagLocalization extends LinearOpMode {
 
         for (AprilTagDetection detection : currentDetections) {
             x = detection.robotPose.getPosition().x / currentDetections.size();
-//            y = detection.robotPose.getPosition().y /
-//                    z =
+            y = detection.robotPose.getPosition().y / currentDetections.size();
+            z = detection.robotPose.getPosition().z / currentDetections.size();
         }
+
+        x += 72;
+        y = 72-y;
+
         return new Position(DistanceUnit.INCH, x,y,z,0);
     }
 

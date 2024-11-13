@@ -34,6 +34,7 @@ import android.graphics.Color;
 import android.view.View;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -41,6 +42,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 /*
  *
  * This OpMode that shows how to use
@@ -61,7 +63,7 @@ public class SensorMRColor extends LinearOpMode {
   private ElapsedTime runtime = new ElapsedTime();
   private DcMotor leftDrive = null;
   private DcMotor rightDrive = null;
-  ColorSensor colorSensor;    // Hardware Device Object
+  ColorRangeSensor colorSensor;    // Hardware Device Object
 
 
 
@@ -94,15 +96,15 @@ public class SensorMRColor extends LinearOpMode {
     final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
     // bPrevState and bCurrState represent the previous and current state of the button.
-    boolean bPrevState = false;
-    boolean bCurrState = false;
-    boolean aPrevState = false;
-    boolean aCurrState = false;
+    boolean xPrevState = false;
+    boolean xCurrState = false;
+    boolean yPrevState = false;
+    boolean yCurrState = false;
     // bLedOn represents the state of the LED.
     boolean bLedOn = true;
     boolean sensingColor = true;
     // get a reference to our ColorSensor object.
-    colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
+    colorSensor = hardwareMap.get(ColorRangeSensor.class, "sensor_color");
 
     // Set the LED in the beginning
     colorSensor.enableLed(bLedOn);
@@ -122,22 +124,23 @@ public class SensorMRColor extends LinearOpMode {
       telemetry.addData("Status", "Run Time: " + runtime.toString());
       telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
       // check the status of the x button on either gamepad.
-      bCurrState = gamepad1.x;
-      aCurrState = gamepad1.y;
-
+      xCurrState = gamepad1.x;
+      yCurrState = gamepad1.y;
       // check for button state transitions.
-      if (bCurrState && (bCurrState != bPrevState)) {
+      if (xCurrState && (xCurrState != xPrevState)) {
 
         // button is transitioning to a pressed state. So Toggle LED
         bLedOn = !bLedOn;
         colorSensor.enableLed(bLedOn);
       }
-      if (aCurrState && (aCurrState != aPrevState)) {
+      if (yCurrState && (yCurrState != yPrevState)) {
         sensingColor = !sensingColor;
       }
       // update previous state variable.
-      bPrevState = bCurrState;
-      aPrevState = aCurrState;
+      xPrevState = xCurrState;
+      yPrevState = yCurrState;
+      telemetry.addData("x curr state/ x prev state", xCurrState + ", " + xPrevState);
+      telemetry.addData("y curr state/ y prev state", yCurrState + ", " + yPrevState);
       // convert the RGB values to HSV values.
       Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
 
@@ -147,12 +150,13 @@ public class SensorMRColor extends LinearOpMode {
       telemetry.addData("Red  ", colorSensor.red());
       telemetry.addData("Green", colorSensor.green());
       telemetry.addData("Blue ", colorSensor.blue());
+      telemetry.addData("Distance ", colorSensor.getDistance(DistanceUnit.INCH));
       telemetry.addData("Hue", hsvValues[0]);
       telemetry.addData("class", colorSensor.getClass());
       // change the background color to match the color detected by the RGB sensor.
       // pass a reference to the hue, saturation, and value array as an argument
       // to the HSVToColor method.
-      if (colorSensor.red() > colorSensor.green() || colorSensor.red() > colorSensor.blue() && sensingColor == true) {
+      if ((colorSensor.red() > colorSensor.green() || colorSensor.red() > colorSensor.blue()) && sensingColor == true) {
         telemetry.addData("Current Color", "Red");
         leftPower = 0;
         rightPower = 0;
@@ -192,5 +196,6 @@ public class SensorMRColor extends LinearOpMode {
           }
         });
       }
+      telemetry.update();
     }
   }}

@@ -102,7 +102,7 @@ public class SensorMRColor extends LinearOpMode {
     boolean yCurrState = false;
     // bLedOn represents the state of the LED.
     boolean bLedOn = true;
-    boolean sensingColor = true;
+    boolean sensingColor = false;
     // get a reference to our ColorSensor object.
     colorSensor = hardwareMap.get(ColorRangeSensor.class, "sensor_color");
 
@@ -145,14 +145,7 @@ public class SensorMRColor extends LinearOpMode {
       Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
 
       // send the info back to driver station using telemetry function.
-      telemetry.addData("LED", bLedOn ? "On" : "Off");
-      telemetry.addData("Clear", colorSensor.alpha());
-      telemetry.addData("Red  ", colorSensor.red());
-      telemetry.addData("Green", colorSensor.green());
-      telemetry.addData("Blue ", colorSensor.blue());
-      telemetry.addData("Distance ", colorSensor.getDistance(DistanceUnit.INCH));
-      telemetry.addData("Hue", hsvValues[0]);
-      telemetry.addData("class", colorSensor.getClass());
+
 
       boolean piece_is_there = false;
       final double PIECE_DIST = 3.0;
@@ -160,29 +153,19 @@ public class SensorMRColor extends LinearOpMode {
         piece_is_there = true;
       }
 
-      telemetry.addData("Is Piece in Intake?:",piece_is_there);
+
 
       // change the background color to match the color detected by the RGB sensor.
       // pass a reference to the hue, saturation, and value array as an argument
       // to the HSVToColor method.
-      int green = colorSensor.alpha();
-      int blue = colorSensor.blue() * 2;
-      int red = colorSensor.red();
-      if (green > red && green > blue) {
-        telemetry.addData("Current Color", "Grey");
-        leftPower = 0.33;
-        rightPower = 0.33;
-      }
-      if ((green < red && red > blue)) {
+      if (hsvValues[0]<50){
         telemetry.addData("Current Color", "Red");
-        leftPower = 0;
-        rightPower = 0;
-      }
-      if (blue > red && green < blue) {
+      }else if (hsvValues[0]>100){
         telemetry.addData("Current Color", "Blue");
-        leftPower = 0;
-        rightPower = 0;
+      }else{
+        telemetry.addData("Current Color", "Yellow");
       }
+
       if (sensingColor == false) {
         double drive = -gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
@@ -208,6 +191,24 @@ public class SensorMRColor extends LinearOpMode {
           }
         });
       }
+
+      int green = colorSensor.alpha();
+      int blue = colorSensor.blue();
+      int red = colorSensor.red();
+
+      telemetry.addData("LED", bLedOn ? "On" : "Off");
+      telemetry.addData("Clear", colorSensor.alpha());
+      telemetry.addData("Red  ", red);
+      telemetry.addData("Green", green);
+      telemetry.addData("Blue ", blue);
+      telemetry.addData("Blue/Green ", blue/(double)green);
+      telemetry.addData("Red/Blue ", red/(double)blue);
+      telemetry.addData("Green/Red ", green/(double)red);
+      telemetry.addData("Distance ", colorSensor.getDistance(DistanceUnit.INCH));
+      telemetry.addData("Hue", hsvValues[0]);
+      telemetry.addData("class", colorSensor.getClass());
+      telemetry.addData("Is Piece in Intake?:",piece_is_there);
+
       telemetry.update();
     }
   }}

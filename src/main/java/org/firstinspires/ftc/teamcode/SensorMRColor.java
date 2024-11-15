@@ -153,20 +153,32 @@ public class SensorMRColor extends LinearOpMode {
       telemetry.addData("Distance ", colorSensor.getDistance(DistanceUnit.INCH));
       telemetry.addData("Hue", hsvValues[0]);
       telemetry.addData("class", colorSensor.getClass());
+
+      boolean piece_is_there = false;
+      final double PIECE_DIST = 3.0;
+      if (colorSensor.getDistance(DistanceUnit.INCH)<PIECE_DIST){
+        piece_is_there = true;
+      }
+
+      telemetry.addData("Is Piece in Intake?:",piece_is_there);
+
       // change the background color to match the color detected by the RGB sensor.
       // pass a reference to the hue, saturation, and value array as an argument
       // to the HSVToColor method.
-      if ((colorSensor.red() > colorSensor.green() || colorSensor.red() > colorSensor.blue()) && sensingColor == true) {
-        telemetry.addData("Current Color", "Red");
-        leftPower = 0;
-        rightPower = 0;
-      }
-      if (colorSensor.green() > colorSensor.red() && colorSensor.green() > colorSensor.blue() && sensingColor == true) {
+      int green = colorSensor.alpha();
+      int blue = colorSensor.blue() * 2;
+      int red = colorSensor.red();
+      if (green > red && green > blue) {
         telemetry.addData("Current Color", "Grey");
         leftPower = 0.33;
         rightPower = 0.33;
       }
-      if (colorSensor.blue() > colorSensor.red() && colorSensor.blue() > colorSensor.green() && sensingColor == true) {
+      if ((green < red && red > blue)) {
+        telemetry.addData("Current Color", "Red");
+        leftPower = 0;
+        rightPower = 0;
+      }
+      if (blue > red && green < blue) {
         telemetry.addData("Current Color", "Blue");
         leftPower = 0;
         rightPower = 0;

@@ -239,7 +239,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
      * Initialize the AprilTag processor.
      */
     private void initAprilTag() {
-        // Create the AprilTag processor by using a builder.
+        // Create the AprilTag processor by using a builder.00
         aprilTag = new AprilTagProcessor.Builder()
                 .setDrawAxes(false)
                 .setDrawCubeProjection(false)

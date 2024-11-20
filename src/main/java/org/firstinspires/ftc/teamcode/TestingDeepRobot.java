@@ -5,11 +5,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import java.util.*;
 
 @TeleOp(name="TestingDeepRobot", group="Testing")
 public class TestingDeepRobot extends LinearOpMode {
+
+    TouchSensor touchFront;
+    TouchSensor touchBack;
 
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
@@ -25,6 +29,10 @@ public class TestingDeepRobot extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        touchFront = hardwareMap.get(TouchSensor.class,"touchFront");
+        touchBack = hardwareMap.get(TouchSensor.class,"touchBack");
+
         frontRight = hardwareMap.get(DcMotor.class,"frontRight");
         frontLeft = hardwareMap.get(DcMotor.class,"frontLeft");
         backRight = hardwareMap.get(DcMotor.class,"backRight");
@@ -113,6 +121,20 @@ public class TestingDeepRobot extends LinearOpMode {
 
             // rightSpool.setPower(extend);
             leftSpool.setPower(extend);
+
+            if(touchFront.isPressed()){
+                telemetry.addData("Front Sensor:","Is Pressed");
+            }
+            else{
+                telemetry.addData("Front Sensor:","Is Not Pressed");
+            }
+
+            if(touchBack.isPressed()){
+                telemetry.addData("Back Sensor:","Is Pressed");
+            }
+            else{
+                telemetry.addData("Back Sensor:","Is Not Pressed");
+            }
 
         }
 

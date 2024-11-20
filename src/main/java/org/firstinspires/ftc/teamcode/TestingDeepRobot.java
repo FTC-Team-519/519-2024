@@ -123,18 +123,19 @@ public class TestingDeepRobot extends LinearOpMode {
             leftSpool.setPower(extend);
 
             if(touchFront.isPressed()){
-                telemetry.addData("Front Sensor:","Is Pressed");
+                telemetry.addLine("Front Sensor: Is Pressed");
             }
             else{
-                telemetry.addData("Front Sensor:","Is Not Pressed");
+                telemetry.addLine("Front Sensor: Is Not Pressed");
             }
 
             if(touchBack.isPressed()){
-                telemetry.addData("Back Sensor:","Is Pressed");
+                telemetry.addLine("Back Sensor: Is Pressed");
             }
             else{
-                telemetry.addData("Back Sensor:","Is Not Pressed");
+                telemetry.addLine("Back Sensor: Is Not Pressed");
             }
+            telemetry.update();
 
         }
 

@@ -111,7 +111,7 @@ public class TestingDeepRobot extends LinearOpMode {
             rightArmMotor.setPower(rightArmMove);
             leftArmMotor.setPower(leftArmMove);
 
-            // rightSpool.setPower(extend);
+            //// rightSpool.setPower(extend);
             leftSpool.setPower(extend);
 
         }

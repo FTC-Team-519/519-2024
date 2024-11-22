@@ -192,7 +192,7 @@ public class SensorMRColor extends LinearOpMode {
         });
       }
 
-      int green = colorSensor.alpha();
+      int green = colorSensor.green();
       int blue = colorSensor.blue();
       int red = colorSensor.red();
 

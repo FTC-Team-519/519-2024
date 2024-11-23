@@ -18,12 +18,6 @@ public class DriveForward2Feet extends OpMode {
     private DcMotor frontLeft = null;
     private DcMotor backRight = null;
     private DcMotor backLeft = null;
-    private DcMotor rightArmMotor = null;
-    private DcMotor leftArmMotor = null;
-    private DcMotor rightSpool = null;
-    private DcMotor leftSpool = null;
-    private CRServo rightIntakeWheel = null;
-    private CRServo leftIntakeWheel = null;
     private List<DcMotor> motors;
 
     private static final double     COUNTS_PER_MOTOR_REV    = 5281.1  ;    // eg: Using 5202 Yellowjacket 30 RPM w/ given encoder
@@ -39,13 +33,7 @@ public class DriveForward2Feet extends OpMode {
         frontLeft = hardwareMap.get(DcMotor.class,"frontLeft");
         backRight = hardwareMap.get(DcMotor.class,"backRight");
         backLeft = hardwareMap.get(DcMotor.class,"backLeft");
-        rightArmMotor = hardwareMap.get(DcMotor.class,"rightArmMotor");
-        leftArmMotor = hardwareMap.get(DcMotor.class,"leftArmMotor");
-        rightSpool = hardwareMap.get(DcMotor.class,"rightSpool");
-        leftSpool = hardwareMap.get(DcMotor.class,"leftSpool");
-        rightIntakeWheel = hardwareMap.get(CRServo.class,"rightIntakeWheel");
-        leftIntakeWheel = hardwareMap.get(CRServo.class,"leftIntakeWheel");
-        motors = Arrays.asList(frontLeft,frontRight,backLeft,backRight,rightArmMotor,leftArmMotor,rightSpool,leftSpool);
+        motors = Arrays.asList(frontLeft,frontRight,backLeft,backRight);
 
         for (DcMotor motor : motors) { // small thingy to simplify code to make all motors brake on zero power
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -58,8 +46,6 @@ public class DriveForward2Feet extends OpMode {
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
-        leftArmMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftSpool.setDirection(DcMotor.Direction.REVERSE);
 
 
     }

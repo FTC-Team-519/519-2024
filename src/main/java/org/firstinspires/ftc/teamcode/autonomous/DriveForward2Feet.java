@@ -58,18 +58,21 @@ public class DriveForward2Feet extends OpMode {
                 isTimeToRun = false;
             }
         }
+        else{
+            allDrivePower(0.0);
+        }
 
     }
 
     protected boolean driveDistanceInches(double speed, double distanceInches) {
 //*       Returns if done (Drives forward)
 //        Should only run the first time
-        if (!allTargetPositionsSet((int)(distanceInches * COUNTS_PER_INCH))) {
+        if (!allTargetPositionsSet((int) (distanceInches * COUNTS_PER_INCH))) {
             setTargetPosition((int) (distanceInches * COUNTS_PER_INCH));
             allDrivePower(speed);
         }
 
-        if (atTargetPositionForward()) {
+        if (atTargetPosition(distanceInches >= 0)){
             return true;
         }
         return false;
@@ -78,6 +81,15 @@ public class DriveForward2Feet extends OpMode {
     protected boolean allTargetPositionsSet(int position) {
         return(frontLeft.getTargetPosition()==position && backLeft.getTargetPosition()==position &&
                 frontRight.getTargetPosition()==position && backRight.getTargetPosition()==position);
+    }
+
+    protected boolean atTargetPosition(boolean isGoingForward) {
+        if (isGoingForward) {
+            return atTargetPositionForward();
+        }
+        else {
+            return atTargetPositionBackward();
+        }
     }
 
     protected boolean atTargetPositionForward() {

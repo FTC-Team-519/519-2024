@@ -23,6 +23,7 @@ public class DoNothingAuto extends OpMode {
     private CRServo rightIntakeWheel = null;
     private CRServo leftIntakeWheel = null;
     private List<DcMotor> motors;
+
     @Override
     public void init() {
         frontRight = hardwareMap.get(DcMotor.class,"frontRight");

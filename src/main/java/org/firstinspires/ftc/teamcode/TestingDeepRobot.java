@@ -1,17 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.*;
 
 @TeleOp(name="TestingDeepRobot", group="Testing")
 public class TestingDeepRobot extends LinearOpMode {
-
+    ColorRangeSensor colorSensor;
     TouchSensor touchFront;
     TouchSensor touchBack;
 
@@ -29,6 +32,8 @@ public class TestingDeepRobot extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        float[] hsvValues = {0F,0F,0F};
+        colorSensor = hardwareMap.get(ColorRangeSensor.class,"colorSensor");
 
         touchFront = hardwareMap.get(TouchSensor.class,"touchFront");
         touchBack = hardwareMap.get(TouchSensor.class,"touchBack");
@@ -49,10 +54,10 @@ public class TestingDeepRobot extends LinearOpMode {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
         rightArmMotor.setDirection(DcMotor.Direction.FORWARD);
         leftArmMotor.setDirection(DcMotor.Direction.REVERSE);
         rightSpool.setDirection(DcMotor.Direction.FORWARD);
@@ -66,6 +71,18 @@ public class TestingDeepRobot extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()){
+            boolean isPieceThere = false;
+            final double reachableRange = 3.0;
+            if(colorSensor.getDistance(DistanceUnit.INCH)<reachableRange) {
+                isPieceThere = true;
+            }
+
+            int red = colorSensor.red();
+            int green = colorSensor.green();
+            int blue = colorSensor.blue();
+
+            Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
+
             double max;
 
             double axial = -gamepad1.left_stick_y;
@@ -91,24 +108,19 @@ public class TestingDeepRobot extends LinearOpMode {
                 leftBackPower /= max;
                 rightBackPower /= max;
             }
-
-            if(gamepad1.a) {
-                rightArmMove = 0.25;
-            }
-            else if(gamepad1.right_bumper){
-                rightArmMove = -0.25;
-            }
-            if(gamepad1.b) {
-                leftArmMove = 0.25;
+            if(gamepad1.right_bumper) {
+                rightArmMove = -0.5;
+                leftArmMove = -0.5;
             }
             else if(gamepad1.left_bumper) {
-                leftArmMove = -0.25;
+                rightArmMove = 0.5;
+                leftArmMove = 0.5;
             }
-            if(gamepad1.y) {
-                extend = 0.25;
+            if(gamepad1.a) {
+                extend = 0.5;
             }
-            else if(gamepad1.x) {
-                extend = -0.25;
+            else if(gamepad1.b) {
+                extend = -0.5;
             }
 
             frontRight.setPower(rightFrontPower);
@@ -119,7 +131,7 @@ public class TestingDeepRobot extends LinearOpMode {
             rightArmMotor.setPower(rightArmMove);
             leftArmMotor.setPower(leftArmMove);
 
-            // rightSpool.setPower(extend);
+            rightSpool.setPower(extend);
             leftSpool.setPower(extend);
 
             if(touchFront.isPressed()){
@@ -135,6 +147,19 @@ public class TestingDeepRobot extends LinearOpMode {
             else{
                 telemetry.addLine("Back Sensor: Is Not Pressed");
             }
+
+            if(isPieceThere) {
+                if (hsvValues[0] < 50) {
+                    telemetry.addData("Current Color", "Red");
+                } else if (hsvValues[0] > 100) {
+                    telemetry.addData("Current Color", "Blue");
+                } else {
+                    telemetry.addData("Current Color", "Yellow");
+                }
+            }
+
+            telemetry.addData("Piece Is There:",isPieceThere);
+
             telemetry.update();
 
         }

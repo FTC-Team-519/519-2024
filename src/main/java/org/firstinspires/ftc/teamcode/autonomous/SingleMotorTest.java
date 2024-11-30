@@ -3,15 +3,13 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Autonomous(name="Drive2FeetForward",group="Autonomous")
-public class DriveForward2Feet extends OpMode {
+public class SingleMotorTest extends OpMode {
 
 //    private boolean isTimeToRun = true;
     boolean isDone = false;
@@ -22,7 +20,9 @@ public class DriveForward2Feet extends OpMode {
     private DcMotor backLeft = null;
     private List<DcMotor> motors;
 
-    private static final double     COUNTS_PER_MOTOR_REV    = 384.5  ;    // eg: Using 5203 Yellowjacket 435 RPM w/ given encoder
+    private int currentMotor = 0;
+
+    private static final double     COUNTS_PER_MOTOR_REV    = 5281.1  ;    // eg: Using 5202 Yellowjacket 30 RPM w/ given encoder
     private static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // Simple Bevel Gear ratio is 2:1
     private static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
@@ -54,6 +54,12 @@ public class DriveForward2Feet extends OpMode {
 
     @Override
     public void loop() {
+//        for (int i = 0; i < motors.size(); i++){
+//            if (i == currentMotor){
+//                motors.get(i).setPower();
+//            }
+//        }
+
         if(!isDone) {
             boolean isDone = driveDistanceInches(driveSpeed, 24);
         }

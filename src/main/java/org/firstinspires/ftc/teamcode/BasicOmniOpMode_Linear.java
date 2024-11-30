@@ -100,9 +100,20 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         // Reverse the direction (flip FORWARD <-> REVERSE ) of any wheel that runs backward
         // Keep testing until ALL the wheels move the robot forward when you push the left joystick forward.
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftBackDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
+
+        leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
@@ -150,11 +161,12 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             //      the setDirection() calls above.
             // Once the correct motors move in the correct direction re-comment this code.
 
+            double currentPower = 0.25;
 
-//            leftFrontPower  = gamepad1.x ? 1.0 : 0.0;  // X gamepad
-//            leftBackPower   = gamepad1.a ? 1.0 : 0.0;  // A gamepad
-//            rightFrontPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
-//            rightBackPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
+            leftFrontPower  = gamepad1.x ? currentPower : 0.0;  // X gamepad
+            leftBackPower   = gamepad1.a ? currentPower : 0.0;  // A gamepad
+            rightFrontPower = gamepad1.y ? currentPower : 0.0;  // Y gamepad
+            rightBackPower  = gamepad1.b ? currentPower : 0.0;  // B gamepad
 
 
             // Send calculated power to wheels

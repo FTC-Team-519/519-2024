@@ -14,8 +14,7 @@ import java.util.List;
 public class DriveForward2Feet extends OpMode {
 
 //    private boolean isTimeToRun = true;
-    boolean isDone = false;
-
+    private boolean isDone;
     private DcMotor frontRight = null;
     private DcMotor frontLeft = null;
     private DcMotor backRight = null;
@@ -26,10 +25,11 @@ public class DriveForward2Feet extends OpMode {
     private static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // Simple Bevel Gear ratio is 2:1
     private static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
-    protected double  driveSpeed    = 0.10;
+    protected double  driveSpeed    = 0.50;
 
     @Override
     public void init(){
+        isDone = false;
 
         frontRight = hardwareMap.get(DcMotor.class,"frontRight");
         frontLeft = hardwareMap.get(DcMotor.class,"frontLeft");
@@ -42,12 +42,17 @@ public class DriveForward2Feet extends OpMode {
         }
 
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
+
+        setTargetPosition(0);
+
+        telemetry.addData("Is It Done Prior:", isDone);
+        telemetry.update();
 
 
     }
@@ -55,7 +60,7 @@ public class DriveForward2Feet extends OpMode {
     @Override
     public void loop() {
         if(!isDone) {
-            boolean isDone = driveDistanceInches(driveSpeed, 24);
+            isDone = driveDistanceInches(driveSpeed, 24);
         }
         else{
             allDrivePower(0.0);
@@ -64,6 +69,15 @@ public class DriveForward2Feet extends OpMode {
         telemetry.addData("Back Left Power:", backLeft.getPower());
         telemetry.addData("Front Right Power:", frontRight.getPower());
         telemetry.addData("Front Left Power:", frontLeft.getPower());
+        telemetry.addData("Back Right Encoder Value:", backRight.getCurrentPosition());
+        telemetry.addData("Back Left Encoder Value:", backLeft.getCurrentPosition());
+        telemetry.addData("Front Right Encoder Value:", frontRight.getCurrentPosition());
+        telemetry.addData("Front Left Encoder Value:", frontLeft.getCurrentPosition());
+        telemetry.addData("Back Right Encoder Value:", backRight.getTargetPosition());
+        telemetry.addData("Back Left Encoder Value:", backLeft.getTargetPosition());
+        telemetry.addData("Front Right Encoder Value:", frontRight.getTargetPosition());
+        telemetry.addData("Front Left Encoder Value:", frontLeft.getTargetPosition());
+        telemetry.addData("Is It Done During:",isDone);
         telemetry.update();
     }
 

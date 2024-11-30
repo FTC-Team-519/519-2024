@@ -56,7 +56,7 @@ public class TestingDeepRobot extends LinearOpMode {
 
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         rightArmMotor.setDirection(DcMotor.Direction.FORWARD);
         leftArmMotor.setDirection(DcMotor.Direction.REVERSE);

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.events;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class LinearProcessor {
+public class LinearProcessor implements Event{
     ArrayList<Event> events;
     int currentEvent = 0;
 
@@ -25,5 +25,9 @@ public class LinearProcessor {
         }
 
         events.get(currentEvent).run();
+    }
+
+    public boolean isDone() {
+        return currentEvent>=events.size();
     }
 }

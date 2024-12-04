@@ -29,11 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -64,9 +62,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Omni Linear OpMode", group="Linear OpMode")
+@TeleOp(name="Motor Testing (Individual)", group="Linear OpMode")
 //@Disabled
-public class BasicOmniOpMode_Linear extends LinearOpMode {
+public class MotorTesting extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
@@ -161,16 +159,12 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             //      the setDirection() calls above.
             // Once the correct motors move in the correct direction re-comment this code.
 
-//            double currentPower = 0.25;
-//
-//            leftFrontPower  = gamepad1.x ? currentPower : 0.0;  // X gamepad
-//            leftBackPower   = gamepad1.a ? currentPower : 0.0;  // A gamepad
-//            rightFrontPower = gamepad1.y ? currentPower : 0.0;  // Y gamepad
-//            rightBackPower  = gamepad1.b ? currentPower : 0.0;  // B gamepad
-            leftFrontPower /= 2;
-            rightFrontPower /= 2;
-            leftBackPower /= 2;
-            rightBackPower /= 2;
+            double currentPower = 1;
+
+            leftFrontPower  = gamepad1.x ? currentPower : 0.0;  // X gamepad
+            leftBackPower   = gamepad1.a ? currentPower : 0.0;  // A gamepad
+            rightFrontPower = gamepad1.y ? currentPower : 0.0;  // Y gamepad
+            rightBackPower  = gamepad1.b ? currentPower : 0.0;  // B gamepad
 
 
             // Send calculated power to wheels

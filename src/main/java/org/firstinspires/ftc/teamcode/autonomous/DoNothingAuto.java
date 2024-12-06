@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.OpModeBase;
 
 
 @Autonomous(name= "Do Nothing",group="Autonomous")
-public class DoNothingAuto extends OpModeBase {
+public class    DoNothingAuto extends OpModeBase {
 
     @Override
     public void loop() {

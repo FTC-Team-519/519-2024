@@ -1,5 +1,4 @@
-package org.firstinspires.ftc.teamcode.events;
-import java.time.LocalTime;
+package org.firstinspires.ftc.teamcode.util.events;
 
 public class Timer implements Event {
     double ms;

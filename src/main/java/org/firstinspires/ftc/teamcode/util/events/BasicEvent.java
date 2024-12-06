@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.events;
+package org.firstinspires.ftc.teamcode.util.events;
 
 public class BasicEvent implements Event {
     Timer timer;

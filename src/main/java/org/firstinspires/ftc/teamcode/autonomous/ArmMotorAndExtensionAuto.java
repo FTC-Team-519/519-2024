@@ -102,6 +102,13 @@ public class ArmMotorAndExtensionAuto extends OpMode {
                 }
                 break;
             }
+            case DONE: {
+                setPower(0.0);
+                break;
+            }
+            case default: {
+                setPower(0.0);
+            }
         }
         telemetry.addData("Current Left Position:",leftArmMotor.getCurrentPosition());
         telemetry.addData("Current Right Position:",rightArmMotor.getCurrentPosition());

@@ -62,7 +62,7 @@ public class TestingDeepRobot extends LinearOpMode {
         leftArmMotor.setDirection(DcMotor.Direction.REVERSE);
         rightSpool.setDirection(DcMotor.Direction.FORWARD);
         leftSpool.setDirection(DcMotor.Direction.REVERSE);
-        rightIntakeWheel.setDirection(CRServo.Direction.FORWARD);
+        rightIntakeWheel.setDirection(CRServo.Direction.REVERSE);
         leftIntakeWheel.setDirection(CRServo.Direction.FORWARD);
 
         telemetry.addData("Status", "Initialized");
@@ -92,6 +92,9 @@ public class TestingDeepRobot extends LinearOpMode {
             double rightArmMove = 0.0;
             double leftArmMove = 0.0;
             double extend = 0.0;
+
+            double outake = gamepad1.right_trigger;
+            double intake = -gamepad1.left_trigger;
 
             double leftFrontPower  = axial + lateral + yaw;
             double rightFrontPower = axial - lateral - yaw;
@@ -133,6 +136,12 @@ public class TestingDeepRobot extends LinearOpMode {
 
             rightSpool.setPower(extend);
             leftSpool.setPower(extend);
+
+            rightIntakeWheel.setPower(outake);
+            leftIntakeWheel.setPower(outake);
+
+            rightIntakeWheel.setPower(intake);
+            leftIntakeWheel.setPower(intake);
 
             if(touchFront.isPressed()){
                 telemetry.addLine("Front Sensor: Is Pressed");

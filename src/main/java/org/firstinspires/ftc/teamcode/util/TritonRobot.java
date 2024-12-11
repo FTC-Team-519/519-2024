@@ -96,11 +96,56 @@ public class TritonRobot {
         return (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
     }
 
-    protected void setWheelsMode(DcMotor.RunMode mode) {
+    public void setWheelsMode(DcMotor.RunMode mode) {
         frontLeft.setMode(mode);
         frontRight.setMode(mode);
         backLeft.setMode(mode);
         backRight.setMode(mode);
+    }
+
+    public void leftDrivePower(double power) {
+        frontLeft.setPower(power);
+        backLeft.setPower(power);
+    }
+
+    public void rightDrivePower(double power) {
+        frontRight.setPower(power);
+        backRight.setPower(power);
+    }
+
+    public void setAllDrivePower(double power) {
+        leftDrivePower(power);
+        rightDrivePower(power);
+    }
+
+    public void setDriveTargetPosition(int position) {
+        frontLeft.setTargetPosition(position);
+        frontRight.setTargetPosition(position);
+        backLeft.setTargetPosition(position);
+        backRight.setTargetPosition(position);
+    }
+
+    public boolean atTargetPosition(boolean isGoingForward) {
+        if (isGoingForward) {
+            return atTargetPositionForward();
+        }
+        else {
+            return atTargetPositionBackward();
+        }
+    }
+
+    public boolean atTargetPositionForward() {
+        return(frontLeft.getCurrentPosition() >= frontLeft.getTargetPosition() &&
+                frontRight.getCurrentPosition() >= frontRight.getTargetPosition() &&
+                backLeft.getCurrentPosition() >= backLeft.getTargetPosition() &&
+                backRight.getCurrentPosition() >= backRight.getTargetPosition());
+    }
+
+    public boolean atTargetPositionBackward() {
+        return(frontLeft.getCurrentPosition() <= frontLeft.getTargetPosition() &&
+                frontRight.getCurrentPosition() <= frontRight.getTargetPosition() &&
+                backLeft.getCurrentPosition() <= backLeft.getTargetPosition() &&
+                backRight.getCurrentPosition() <= backRight.getTargetPosition());
     }
 
     //bunch of getter methods

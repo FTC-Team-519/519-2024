@@ -11,9 +11,9 @@ public class DriveForward implements Event {
         distance = inches*TritonRobot.getCountsPerInchForMotors();
 
         // init robot
-        robot = robot;
+        this.robot = robot;
 
-        robot.isTargetPositionsForMotorsSet((int)distance);
+        this.robot.isTargetPositionsForMotorsSet((int)distance);
     }
 //    @Override
     public void run() {

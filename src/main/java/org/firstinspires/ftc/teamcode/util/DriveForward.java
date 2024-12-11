@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.util;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.util.events.Event;
 
 // Uses encoders
@@ -8,13 +7,13 @@ public class DriveForward implements Event {
     private double distance;
     private TritonRobot robot;
 
-    DriveForward(double inches, HardwareMap hmap) {
+    DriveForward(double inches, TritonRobot robot) {
         distance = inches*TritonRobot.getCountsPerInchForMotors();
 
         // init robot
-        robot = new TritonRobot(hmap);
+        robot = robot;
 
-        robot.setTargetPositionsForMotors(distance);
+        robot.isTargetPositionsForMotorsSet((int)distance);
     }
 //    @Override
     public void run() {

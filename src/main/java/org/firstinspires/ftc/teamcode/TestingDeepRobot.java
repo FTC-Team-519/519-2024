@@ -8,7 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.ColorRangeSensor;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.*;
 
@@ -17,6 +20,8 @@ public class TestingDeepRobot extends LinearOpMode {
     ColorRangeSensor colorSensor;
     TouchSensor touchFront;
     TouchSensor touchBack;
+    VisionPortal visionPortal;
+    AprilTagProcessor aprilTagProcessor;
 
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
@@ -32,6 +37,11 @@ public class TestingDeepRobot extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
+
+        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class,"Webcam 1"),aprilTagProcessor);
+
         float[] hsvValues = {0F,0F,0F};
         colorSensor = hardwareMap.get(ColorRangeSensor.class,"colorSensor");
 
@@ -52,6 +62,8 @@ public class TestingDeepRobot extends LinearOpMode {
 
         for (DcMotor motor : motors) { // small thingy to simplify code to make all motors brake on zero power
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
         frontRight.setDirection(DcMotor.Direction.FORWARD);
@@ -111,19 +123,19 @@ public class TestingDeepRobot extends LinearOpMode {
                 leftBackPower /= max;
                 rightBackPower /= max;
             }
-            if(gamepad1.right_bumper) {
-                rightArmMove = -0.5;
-                leftArmMove = -0.5;
+            if(gamepad1.right_bumper && !touchBack.isPressed()) {
+                rightArmMove = -0.7;
+                leftArmMove = -0.7;
             }
-            else if(gamepad1.left_bumper) {
-                rightArmMove = 0.5;
-                leftArmMove = 0.5;
+            else if(gamepad1.left_bumper && !touchFront.isPressed()) {
+                rightArmMove = 0.7;
+                leftArmMove = 0.7;
             }
             if(gamepad1.a) {
-                extend = 0.5;
+                extend = 1.0;
             }
             else if(gamepad1.b) {
-                extend = -0.5;
+                extend = -1.0;
             }
 
             frontRight.setPower(rightFrontPower);
@@ -175,6 +187,7 @@ public class TestingDeepRobot extends LinearOpMode {
             telemetry.update();
 
         }
+        visionPortal.close();
 
     }
 

@@ -81,7 +81,7 @@ public class TestingDeepRobot extends LinearOpMode {
             int green = colorSensor.green();
             int blue = colorSensor.blue();
 
-            Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
+            Color.RGBToHSV(red * 8, green * 8, blue * 8, hsvValues);
 
             double max;
 
@@ -93,7 +93,7 @@ public class TestingDeepRobot extends LinearOpMode {
             double leftArmMove = 0.0;
             double extend = 0.0;
 
-            double outake = gamepad1.right_trigger;
+            double outtake = gamepad1.right_trigger;
             double intake = -gamepad1.left_trigger;
 
             double leftFrontPower  = axial + lateral + yaw;
@@ -137,11 +137,14 @@ public class TestingDeepRobot extends LinearOpMode {
             rightSpool.setPower(extend);
             leftSpool.setPower(extend);
 
-            rightIntakeWheel.setPower(outake);
-            leftIntakeWheel.setPower(outake);
-
-            rightIntakeWheel.setPower(intake);
-            leftIntakeWheel.setPower(intake);
+            if(outtake>intake*-1) {
+                rightIntakeWheel.setPower(outtake);
+                leftIntakeWheel.setPower(outtake);
+            }
+            else {
+                rightIntakeWheel.setPower(intake);
+                leftIntakeWheel.setPower(intake);
+            }
 
             if(touchFront.isPressed()){
                 telemetry.addLine("Front Sensor: Is Pressed");

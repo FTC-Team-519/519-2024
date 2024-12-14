@@ -75,7 +75,7 @@ public class TritonRobot {
         leftIntakeWheel = hardwareMap.get(CRServo.class,"leftIntakeWheel");
 
         rightIntakeWheel.setDirection(CRServo.Direction.FORWARD);
-        leftIntakeWheel.setDirection(CRServo.Direction.FORWARD);
+        leftIntakeWheel.setDirection(CRServo.Direction.REVERSE);
 
         // Sensors
         colorSensor = hardwareMap.get(ColorRangeSensor.class,"colorSensor");
@@ -167,6 +167,18 @@ public class TritonRobot {
                 backRight.getCurrentPosition() <= backRight.getTargetPosition());
     }
 
+    // Drive for non-drive motors
+
+    public void setSpoolPower(double power) {
+        leftSpool.setPower(power);
+        rightSpool.setPower(power);
+    }
+
+    public void setIntakePower(double power) {
+        leftIntakeWheel.setPower(power);
+        rightIntakeWheel.setPower(power);
+    }
+
     // Returns if a piece is currently in the intake or not based on colorSensor and given range
     // This has the visibleDistance as a variable in case we want to further refine the range later on
     public boolean doesIntakeContainPiece(double visibleDistance) {
@@ -186,6 +198,8 @@ public class TritonRobot {
         // This is a range due to amount of light, also red range was lowered due to overriding yellow outputs.
         // Yellow min is 10 from experimentation, Red always reads as 0, so 5 to allow for some room.
         // Blue had no changes due to being far enough away from Red and Yellow that it had no effect.
+        // NOTE: This is due to the light being off. Further changes are necessary. Will delete this when
+        //  done with said changes. (If somebody else fixes this please delete this note)
 
         if(hue<5) {
             return SampleColor.RED;

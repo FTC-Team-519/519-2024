@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.util;
 
 import android.graphics.Color;
 import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class TritonRobot {
     CRServo leftIntakeWheel = null;
 
     ArrayList<DcMotor> motors;
+
+    AnalogInput potentiometer = null;
 
     public enum SampleColor {
         RED,
@@ -82,6 +85,8 @@ public class TritonRobot {
 
         touchFront = hardwareMap.get(TouchSensor.class,"touchFront");
         touchBack = hardwareMap.get(TouchSensor.class,"touchBack");
+
+        potentiometer = hardwareMap.get(AnalogInput.class,"potentiometer");
 
 
         motors = new ArrayList<DcMotor>();
@@ -187,6 +192,8 @@ public class TritonRobot {
 
     // Returns a SampleColor to allow for easy case/switch statements (RED, BLUE, and YELLOW are the cases)
     public SampleColor currentIntakePieceColor(){
+        colorSensor.enableLed(true);
+
         float[] hsvValues = {0F,0F,0F};
         int red = colorSensor.red();
         int green = colorSensor.green();
@@ -201,13 +208,16 @@ public class TritonRobot {
         // NOTE: This is due to the light being off. Further changes are necessary. Will delete this when
         //  done with said changes. (If somebody else fixes this please delete this note)
 
-        if(hue<5) {
+        if(hue<34) {
+            colorSensor.enableLed(false);
             return SampleColor.RED;
         }
         else if(hue>100) {
+            colorSensor.enableLed(false);
             return SampleColor.BLUE;
         }
         else {
+            colorSensor.enableLed(false);
             return SampleColor.YELLOW;
         }
     }
@@ -220,6 +230,13 @@ public class TritonRobot {
 
     public boolean touchingFront() {
         return touchFront.isPressed();
+    }
+
+    // This is unfinished, but should be used as a way to get the current position of the potentiometer
+    // or absolute encoder. Essentially it will get the current position of the arm, regardless of when
+    // the robot was last started, as it doesn't reset like the motor encoders do.
+    public double readAbsoluteEncoderValue() {
+        return potentiometer.getVoltage();
     }
 
     //bunch of getter methods

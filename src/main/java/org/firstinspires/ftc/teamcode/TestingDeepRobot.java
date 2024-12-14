@@ -173,7 +173,7 @@ public class TestingDeepRobot extends LinearOpMode {
             }
 
             if(isPieceThere) {
-                if (hsvValues[0] < 50) {
+                if (hsvValues[0] < 5) {
                     telemetry.addData("Current Color", "Red");
                 } else if (hsvValues[0] > 100) {
                     telemetry.addData("Current Color", "Blue");

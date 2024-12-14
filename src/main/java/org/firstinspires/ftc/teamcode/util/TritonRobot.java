@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.util;
 
+import android.graphics.Color;
 import com.qualcomm.robotcore.hardware.*;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +33,12 @@ public class TritonRobot {
     CRServo leftIntakeWheel = null;
 
     ArrayList<DcMotor> motors;
+
+    public enum SampleColor {
+        RED,
+        BLUE,
+        YELLOW
+    }
 
     // init robot
     public TritonRobot(HardwareMap hardwareMap) {
@@ -157,6 +165,47 @@ public class TritonRobot {
                 frontRight.getCurrentPosition() <= frontRight.getTargetPosition() &&
                 backLeft.getCurrentPosition() <= backLeft.getTargetPosition() &&
                 backRight.getCurrentPosition() <= backRight.getTargetPosition());
+    }
+
+    // Returns if a piece is currently in the intake or not based on colorSensor and given range
+    // This has the visibleDistance as a variable in case we want to further refine the range later on
+    public boolean doesIntakeContainPiece(double visibleDistance) {
+        return(colorSensor.getDistance(DistanceUnit.INCH)<visibleDistance);
+    }
+
+    // Returns a SampleColor to allow for easy case/switch statements (RED, BLUE, and YELLOW are the cases)
+    public SampleColor currentIntakePieceColor(){
+        float[] hsvValues = {0F,0F,0F};
+        int red = colorSensor.red();
+        int green = colorSensor.green();
+        int blue = colorSensor.blue();
+        Color.RGBToHSV(red * 8, green * 8, blue * 8, hsvValues);
+
+        float hue = hsvValues[0];
+
+        // This is a range due to amount of light, also red range was lowered due to overriding yellow outputs.
+        // Yellow min is 10 from experimentation, Red always reads as 0, so 5 to allow for some room.
+        // Blue had no changes due to being far enough away from Red and Yellow that it had no effect.
+
+        if(hue<5) {
+            return SampleColor.RED;
+        }
+        else if(hue>100) {
+            return SampleColor.BLUE;
+        }
+        else {
+            return SampleColor.YELLOW;
+        }
+    }
+
+    // Returns based on whether the touch sensors are pressed
+    // This is majorly used as a limiting function for the arm rotation
+    public boolean touchingBack() {
+        return touchBack.isPressed();
+    }
+
+    public boolean touchingFront() {
+        return touchFront.isPressed();
     }
 
     //bunch of getter methods

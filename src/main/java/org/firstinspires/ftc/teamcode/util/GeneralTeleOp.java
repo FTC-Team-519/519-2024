@@ -10,6 +10,9 @@ public class GeneralTeleOp extends OpModeBase{
     @Override
     public void loop() {
 
+        // This section should return the current voltage
+        telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
+
 
         // This section returns the current piece's color (if it exists)
 
@@ -86,14 +89,14 @@ public class GeneralTeleOp extends OpModeBase{
         double leftGiven = 0.0;
 
         if (!robot.touchingBack()) {
-            if (gamepad1.left_bumper) {
+            if (gamepad1.right_bumper) {
                 leftGiven = armDriveSpeed;
             }
         } else {
             telemetry.addLine("WARNING: Robot is at highest possible back position");
         }
         if (!robot.touchingFront()) {
-            if (gamepad1.right_bumper) {
+            if (gamepad1.left_bumper) {
                 rightGiven = armDriveSpeed;
             }
         } else {
@@ -110,10 +113,10 @@ public class GeneralTeleOp extends OpModeBase{
 
         double spoolPower = 0.0;
 
-        if (gamepad1.a){
+        if (gamepad2.a){
             spoolPower += spoolMaxPower;
         }
-        if(gamepad1.b){
+        if(gamepad2.b){
             spoolPower -= spoolMaxPower;
         }
 
@@ -126,8 +129,8 @@ public class GeneralTeleOp extends OpModeBase{
         double intakeMax;
         double intakePower = 0.0;
 
-        double leftIntakeGiven = gamepad1.left_trigger;
-        double rightIntakeGiven = gamepad1.right_trigger;
+        double leftIntakeGiven = gamepad2.left_trigger;
+        double rightIntakeGiven = gamepad2.right_trigger;
 
         intakeMax = Math.max(leftIntakeGiven,rightIntakeGiven);
 

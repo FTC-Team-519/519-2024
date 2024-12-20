@@ -7,7 +7,7 @@ public class LinearProcessor implements Event{
     ArrayList<Event> events;
     int currentEvent = 0;
 
-    LinearProcessor(Event... tasks) {
+    public LinearProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
     }

@@ -239,6 +239,11 @@ public class TritonRobot {
         return potentiometer.getVoltage();
     }
 
+    // This just puts out the Encoder Value as (what should be) degrees on a scale of 360.
+    public double readAbsoluteEncoderValueAsDegrees() {
+        return readAbsoluteEncoderValue() * 81.1785929;
+    }
+
     //bunch of getter methods
     //generally, try to avoid the motor getters
     public ColorRangeSensor getColorSensor() {

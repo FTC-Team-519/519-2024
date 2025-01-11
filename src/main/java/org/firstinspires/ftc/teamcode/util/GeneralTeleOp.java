@@ -12,6 +12,7 @@ public class GeneralTeleOp extends OpModeBase{
 
         // This section should return the current voltage
         telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
+        telemetry.addData("Degree From Back: ",robot.readAbsoluteEncoderValueAsDegrees());
 
 
         // This section returns the current piece's color (if it exists)
@@ -30,13 +31,22 @@ public class GeneralTeleOp extends OpModeBase{
             switch (robot.currentIntakePieceColor()) {
                 case RED: {
                     telemetry.addLine("Piece Color: Red");
+                    telemetry.addLine("Piece Color: Red");
+                    telemetry.addLine("Piece Color: Red");
+                    telemetry.addLine("Piece Color: Red");
                     break;
                 }
                 case BLUE: {
                     telemetry.addLine("Piece Color: Blue");
+                    telemetry.addLine("Piece Color: Blue");
+                    telemetry.addLine("Piece Color: Blue");
+                    telemetry.addLine("Piece Color: Blue");
                     break;
                 }
                 case YELLOW: {
+                    telemetry.addLine("Piece Color: Yellow");
+                    telemetry.addLine("Piece Color: Yellow");
+                    telemetry.addLine("Piece Color: Yellow");
                     telemetry.addLine("Piece Color: Yellow");
                     break;
                 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LinearProcessor implements Event{
-    ArrayList<Event> events;
-    int currentEvent = 0;
+    ArrayList<Event> events = new ArrayList<>();
+    int currentEventIndex = 0;
 
-    LinearProcessor(Event... tasks) {
+    public LinearProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
     }
@@ -17,17 +17,19 @@ public class LinearProcessor implements Event{
     * if curEvent > events.size() then do nothing
     * */
     public void run() {
-        if (events.get(currentEvent).isDone()) {
-            currentEvent++;
-        }
-        if (currentEvent >= events.size()) {
+        if (isDone()) {
             return;
         }
 
-        events.get(currentEvent).run();
+        Event currentEvent = events.get(currentEventIndex);
+        currentEvent.run();
+
+        if (currentEvent.isDone()) {
+            ++currentEventIndex;
+        }
     }
 
     public boolean isDone() {
-        return currentEvent>=events.size();
+        return currentEventIndex >= events.size();
     }
 }

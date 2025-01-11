@@ -19,6 +19,10 @@ public class DriveForward implements Event {
     }
 //    @Override
     public void run() {
+        if(isDone()){
+            robot.setAllDrivePower(0);
+            return;
+        }
         this.robot.setAllDrivePower(0.5);
     }
 

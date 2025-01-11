@@ -8,7 +8,7 @@ public class DriveForward implements Event {
     private double distance;
     private TritonRobot robot;
 
-    DriveForward(double inches, TritonRobot robot) {
+    public DriveForward(double inches, TritonRobot robot) {
         distance = inches*TritonRobot.getCountsPerInchForDriveMotors();
 
         // init robot

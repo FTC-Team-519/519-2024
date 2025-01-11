@@ -7,7 +7,7 @@ public class DriveSideways implements Event {
     private double distance;
     private TritonRobot robot;
 
-    DriveSideways(double inches, TritonRobot robot) {
+    public DriveSideways(double inches, TritonRobot robot) {
         distance = inches*TritonRobot.getCountsPerInchForDriveMotors();
 
         // init robot

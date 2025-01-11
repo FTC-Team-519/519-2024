@@ -8,8 +8,9 @@ public class Timer implements Event {
         ms =  miliSeconds;
         startTime = System.currentTimeMillis();
     }
-
+    public void init() {}
     public void run() {}
+    public void shutdown() {}
     public boolean isDone() {
         return (System.currentTimeMillis()-startTime)>=ms;
     }

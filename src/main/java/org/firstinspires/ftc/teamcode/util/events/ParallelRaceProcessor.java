@@ -14,6 +14,8 @@ public class ParallelRaceProcessor implements Event {
         events.addAll(Arrays.asList(tasks));
     }
 
+    public void init() {}
+
     // Runs all event in events if event.isDone() events.remove(event)
     public void run() {
         if (isDone()) {
@@ -30,6 +32,9 @@ public class ParallelRaceProcessor implements Event {
             }
         }
     }
+
+    public void shutdown() {}
+
     public boolean isDone() {
         return finished;
     }

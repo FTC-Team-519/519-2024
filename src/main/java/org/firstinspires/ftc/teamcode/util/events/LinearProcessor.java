@@ -35,6 +35,7 @@ public class LinearProcessor implements Event{
         currentEvent.run();
 
         if (currentEvent.isDone()) {
+            currentEvent.shutdown();
             ++currentEventIndex;
             currentEventIsInitialized = false;
         }

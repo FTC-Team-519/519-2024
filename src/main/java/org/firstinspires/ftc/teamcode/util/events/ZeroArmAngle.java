@@ -12,6 +12,8 @@ public class ZeroArmAngle implements Event{
         this.robot = robot;
     }
 
+    public void init() {}
+
     @Override
     public void run() {
 
@@ -21,6 +23,8 @@ public class ZeroArmAngle implements Event{
             robot.setArmRotatePower(0.0);
         }
     }
+
+    public void shutdown() {}
 
     @Override
     public boolean isDone() {

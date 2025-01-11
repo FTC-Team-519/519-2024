@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.util;
+package org.firstinspires.ftc.teamcode.util.events;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.teamcode.util.events.Event;
+import org.firstinspires.ftc.teamcode.util.TritonRobot;
 
 public class DriveSideways implements Event {
     private double distance;
@@ -12,16 +12,14 @@ public class DriveSideways implements Event {
 
         // init robot
         this.robot = robot;
+    }
 
+    public void init() {
         this.robot.setDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.robot.setDriveTargetPosition((int)distance);
     }
 
     public void run() {
-        if(isDone()){
-            robot.setAllDrivePower(0);
-            return;
-        }
         if(distance>0) {
             this.robot.getFrontLeft().setPower(0.5);
             this.robot.getFrontRight().setPower(-0.5);
@@ -34,6 +32,12 @@ public class DriveSideways implements Event {
             this.robot.getBackLeft().setPower(0.5);
             this.robot.getBackRight().setPower(-0.5);
         }
+    }
+
+    public void shutdown() {
+        this.robot.setAllDrivePower(0.0d);
+        this.robot.setDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.robot.setDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public boolean isDone() {

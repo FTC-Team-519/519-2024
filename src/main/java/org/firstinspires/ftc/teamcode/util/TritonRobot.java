@@ -218,13 +218,13 @@ public class TritonRobot {
     }
 
     public boolean atSpoolPositionHigh() {
-        return(leftSpool.getCurrentPosition() >= leftSpool.getTargetPosition() &&
-                rightSpool.getCurrentPosition() >= rightSpool.getTargetPosition());
+        return(leftSpool.getCurrentPosition() <= leftSpool.getTargetPosition() &&
+                rightSpool.getCurrentPosition() <= rightSpool.getTargetPosition());
     }
 
     public boolean atSpoolPositionLow() {
-        return(leftSpool.getCurrentPosition() <= leftSpool.getTargetPosition() &&
-                rightSpool.getCurrentPosition() <= rightSpool.getTargetPosition());
+        return(leftSpool.getCurrentPosition() >= leftSpool.getTargetPosition() &&
+                rightSpool.getCurrentPosition() >= rightSpool.getTargetPosition());
     }
 
     public void setIntakePower(double power) {

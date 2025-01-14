@@ -12,7 +12,6 @@ public class LinearProcessor implements Event{
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
     }
-
     /* go through all events
     * if event isDone curevent ++
     * if curEvent > events.size() then do nothing
@@ -38,10 +37,12 @@ public class LinearProcessor implements Event{
             currentEvent.shutdown();
             ++currentEventIndex;
             currentEventIsInitialized = false;
+            currentEvent.shutdown();
         }
     }
 
     public void shutdown() {}
+
 
     public boolean isDone() {
         return currentEventIndex >= events.size();

@@ -30,6 +30,8 @@ public class TritonRobot {
     DcMotor rightSpool = null;
     DcMotor leftSpool = null;
 
+    //TODO: Figure out if positve power intakes or outakes
+    // I recommend that positive should intake
     CRServo rightIntakeWheel = null;
     CRServo leftIntakeWheel = null;
 
@@ -112,6 +114,8 @@ public class TritonRobot {
         rightArmMotor.setTargetPosition(position);
     }
     */
+
+
 
     //drive motor stuff
     public boolean isTargetPositionsForDriveMotorsSet(int position) {
@@ -231,6 +235,10 @@ public class TritonRobot {
         leftIntakeWheel.setPower(power);
         rightIntakeWheel.setPower(power);
         //leftIntakeWheel.setDirection(direction);
+    }
+
+    public double getIntakePower(){
+        return this.leftIntakeWheel.getPower();
     }
 
     // Returns if a piece is currently in the intake or not based on colorSensor and given range

@@ -116,7 +116,7 @@ public class GeneralTeleOp extends OpModeBase{
         armMotorPower = leftGiven - rightGiven;
         robot.setArmRotatePower(armMotorPower);
 
-        // This section uses the A and B buttons to extend and retract the arm respectively.
+        // This section uses the A and B buttons to retract and extend the arm respectively.
         // WARNING: This section currently contains no stoppers, so it is possible to snap the cabling or
         // loosen it an excessive amount. Restraint is to be practiced by driver.
         double spoolMaxPower = 1.0;

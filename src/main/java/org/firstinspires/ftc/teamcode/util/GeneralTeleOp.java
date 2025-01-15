@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.util;
 
 import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import java.lang.Math;
 
 @TeleOp(name="GeneralTeleOp",group="CompetitionTeleOp")
 public class GeneralTeleOp extends OpModeBase{
-
     @Override
     public void loop() {
 
@@ -14,7 +14,13 @@ public class GeneralTeleOp extends OpModeBase{
         telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
         telemetry.addData("Degree From Back: ",robot.readAbsoluteEncoderValueAsDegrees());
 
+        colorSensor();
+        move();
+        arm();
+        intake();
+    }
 
+    public void colorSensor() {
         // This section returns the current piece's color (if it exists)
 
         float[] hsvValues = {0F, 0F, 0F};
@@ -53,7 +59,9 @@ public class GeneralTeleOp extends OpModeBase{
             }
         }
         telemetry.addData("Is Piece There: ", pieceIsThere);
+    }
 
+    public void move() {
         // This section sets drive motor powers, and limits them to a maximum of 1
         // This is done so they don't try to go higher than their possible speed
         double drivePowerDivisor = 1.0;
@@ -89,7 +97,9 @@ public class GeneralTeleOp extends OpModeBase{
         robot.frontRight.setPower(rightFrontPower);
         robot.backLeft.setPower(leftBackPower);
         robot.backRight.setPower(rightBackPower);
+    }
 
+    public void arm() {
         // This section sets the arm rotation motors based on the bumpers (right is down, left is up)
         // It also incorporates the touch sensors in an effort to stop the driver from destroying the robot
         double armDriveSpeed = 0.5;
@@ -130,8 +140,25 @@ public class GeneralTeleOp extends OpModeBase{
             spoolPower -= spoolMaxPower;
         }
 
-        robot.setSpoolPower(spoolPower);
+//        int length_of_spools = (robot.leftSpool.getCurrentPosition() + robot.rightSpool.getCurrentPosition() )/2
+        double armAngle = robot.readAbsoluteEncoderValueAsDegrees();
+        if(armAngle > 22) {
+            if(robot.leftSpool.getCurrentPosition()<-3571) {
+                spoolPower = spoolMaxPower/4;
+            }
+        }
 
+
+//        if(armMotorPower<0) { // going right
+//
+//        } else if (armMotorPower>0) {
+//
+//        }
+
+        robot.setSpoolPower(spoolPower);
+    }
+
+    public void intake() {
         // This section uses the triggers to spin the fly wheels for the intake.
         // Right trigger is to intake, and left is to outtake
         double intakePowerMultiplier = 1.0;
@@ -154,5 +181,4 @@ public class GeneralTeleOp extends OpModeBase{
 
         robot.setIntakePower(intakePower);
     }
-
 }

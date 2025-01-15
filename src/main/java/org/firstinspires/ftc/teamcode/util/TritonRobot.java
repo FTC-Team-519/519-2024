@@ -30,8 +30,8 @@ public class TritonRobot {
     DcMotor rightSpool = null;
     DcMotor leftSpool = null;
 
-    //TODO: Figure out if positve power intakes or outakes
-    // I recommend that positive should intake
+    //positive intake
+    //negative outake
     CRServo rightIntakeWheel = null;
     CRServo leftIntakeWheel = null;
 

@@ -7,11 +7,17 @@ public class IntakePiece implements Event{
     final int SAMPLECOUNT = 10;
     private int curr_samples = 0;
     private double speed;
+    private boolean intake;
+    private Timer timer = null;
 
     //speed should be positive
-    public IntakePiece(TritonRobot robot, double speed) {
+    public IntakePiece(TritonRobot robot, double speed, boolean intake) {
         this.robot = robot;
         this.speed = speed;
+        this.intake = intake;
+        if (!intake){
+            this.timer = new Timer(1000);
+        }
     }
 
     @Override
@@ -19,13 +25,18 @@ public class IntakePiece implements Event{
 
     @Override
     public void run() {
-        if(curr_samples<SAMPLECOUNT) {
-            robot.setIntakePower(speed);
-            if (robot.doesIntakeContainPiece(3.0)) {
-                curr_samples++;
+        if (intake) {
+            if (curr_samples < SAMPLECOUNT) {
+                robot.setIntakePower(speed);
+                if (robot.doesIntakeContainPiece(3.0)) {
+                    curr_samples++;
+                }
+            } else {
+                robot.setIntakePower(0.0);
             }
         }else{
-            robot.setIntakePower(0.0);
+            this.timer.run();
+            robot.setIntakePower(-speed);
         }
     }
 
@@ -37,6 +48,9 @@ public class IntakePiece implements Event{
     @Override
     public boolean isDone() {
         this.shutdown();
+        if (!this.intake){
+            return timer.isDone();
+        }
         return curr_samples>=SAMPLECOUNT;
     }
 }

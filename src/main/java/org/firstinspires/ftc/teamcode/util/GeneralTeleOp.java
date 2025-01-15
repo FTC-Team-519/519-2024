@@ -147,7 +147,11 @@ public class GeneralTeleOp extends OpModeBase{
                 spoolPower = spoolMaxPower/4;
             }
         }
-
+        if(armAngle > 22) {
+            if(spoolPower < 0 && robot.leftSpool.getCurrentPosition()<-3500) {
+                spoolPower = 0;
+            }
+        }
 
 //        if(armMotorPower<0) { // going right
 //

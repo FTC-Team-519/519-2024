@@ -173,6 +173,23 @@ public class TritonRobot {
         backRight.setTargetPosition(position);
     }
 
+    public void rotateClockwise(int speed) {
+        frontLeft.setPower(speed);
+        frontRight.setPower(-speed);
+        backLeft.setPower(-speed);
+        backRight.setPower(speed);
+    }
+
+    public void rotateCounterClockwise(int speed) {
+        frontLeft.setPower(-speed);
+        frontRight.setPower(speed);
+        backLeft.setPower(speed);
+        backRight.setPower(-speed);
+    }
+
+
+
+
     public boolean atDriveTargetPosition(boolean isGoingForward) {
         if (isGoingForward) {
             return atDriveTargetPositionForward();

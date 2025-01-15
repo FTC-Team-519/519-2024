@@ -106,6 +106,12 @@ public class TritonRobot {
         this.leftArmMotor.setPower(power);
         this.rightArmMotor.setPower(power);
     }
+    /*
+    public void setArmTargetPosition(int position) {
+        leftArmMotor.setTargetPosition(position);
+        rightArmMotor.setTargetPosition(position);
+    }
+    */
 
     //drive motor stuff
     public boolean isTargetPositionsForDriveMotorsSet(int position) {
@@ -140,6 +146,20 @@ public class TritonRobot {
     public void setAllDrivePower(double power) {
         setLeftDrivePower(power);
         setRightDrivePower(power);
+    }
+
+    public void setStrafeLeftPower(double power){
+        frontLeft.setPower(-power);
+        backLeft.setPower(power);
+        frontRight.setPower(power);
+        backRight.setPower(-power);
+    }
+
+    public void setStrafeRightPower(double power){
+        frontLeft.setPower(power);
+        backLeft.setPower(-power);
+        frontRight.setPower(-power);
+        backRight.setPower(power);
     }
 
     public void setDriveTargetPosition(int position) {
@@ -179,9 +199,38 @@ public class TritonRobot {
         rightSpool.setPower(power);
     }
 
+    public void setSpoolMode(DcMotor.RunMode mode) {
+        leftSpool.setMode(mode);
+        rightSpool.setMode(mode);
+    }
+
+    public void setSpoolTargetPosition(int position){
+        leftSpool.setTargetPosition(position);
+        rightSpool.setTargetPosition(position);
+    }
+
+    public double getCurrentLeftSpoolPosition(){
+        return(leftSpool.getCurrentPosition());
+    }
+
+    public double getCurrentRightSpoolPosition(){
+        return(rightSpool.getCurrentPosition());
+    }
+
+    public boolean atSpoolPositionHigh() {
+        return(leftSpool.getCurrentPosition() <= leftSpool.getTargetPosition() &&
+                rightSpool.getCurrentPosition() <= rightSpool.getTargetPosition());
+    }
+
+    public boolean atSpoolPositionLow() {
+        return(leftSpool.getCurrentPosition() >= leftSpool.getTargetPosition() &&
+                rightSpool.getCurrentPosition() >= rightSpool.getTargetPosition());
+    }
+
     public void setIntakePower(double power) {
         leftIntakeWheel.setPower(power);
         rightIntakeWheel.setPower(power);
+        //leftIntakeWheel.setDirection(direction);
     }
 
     // Returns if a piece is currently in the intake or not based on colorSensor and given range
@@ -236,7 +285,12 @@ public class TritonRobot {
     // or absolute encoder. Essentially it will get the current position of the arm, regardless of when
     // the robot was last started, as it doesn't reset like the motor encoders do.
     public double readAbsoluteEncoderValue() {
-        return potentiometer.getVoltage();
+        return potentiometer.getVoltage(); //top of rotation is 0, bottom is local max
+    }
+
+    // This just puts out the Encoder Value as (what should be) degrees on a scale of 360.
+    public double readAbsoluteEncoderValueAsDegrees() {
+        return readAbsoluteEncoderValue() * 81.1785929;
     }
 
     //bunch of getter methods

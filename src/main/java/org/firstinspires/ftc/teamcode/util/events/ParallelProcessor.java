@@ -14,6 +14,8 @@ public class ParallelProcessor implements Event {
         events.addAll(Arrays.asList(tasks));
     }
 
+    public void init() {}
+
     // Runs all event in events if event.isDone() events.remove(event)
     public void run() {
         for (int i=0; i<events.size(); i++) {
@@ -28,6 +30,9 @@ public class ParallelProcessor implements Event {
             }
         }
     }
+
+    public void shutdown() {}
+
     public boolean isDone() {
         return events.isEmpty();
     }

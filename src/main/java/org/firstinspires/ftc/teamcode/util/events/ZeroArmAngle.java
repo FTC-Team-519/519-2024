@@ -24,7 +24,9 @@ public class ZeroArmAngle implements Event{
         }
     }
 
-    public void shutdown() {}
+    public void shutdown() {
+        robot.setArmRotatePower(0.0);
+    }
 
     @Override
     public boolean isDone() {

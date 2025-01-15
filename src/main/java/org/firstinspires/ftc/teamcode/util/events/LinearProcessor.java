@@ -8,6 +8,7 @@ public class LinearProcessor implements Event{
     int currentEventIndex = 0;
     boolean currentEventIsInitialized = false;
 
+
     public LinearProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));

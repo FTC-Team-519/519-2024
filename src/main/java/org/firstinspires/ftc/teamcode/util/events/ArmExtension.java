@@ -27,6 +27,7 @@ public class ArmExtension implements Event {
     }
 
     //    @Override
+    // Left max is -3571
     public void run() {
         if(extending()) {
             this.robot.setSpoolPower(-0.5);

@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import org.firstinspires.ftc.teamcode.util.events.ArmExtension;
-import org.firstinspires.ftc.teamcode.util.events.ArmRotation;
-import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
+import org.firstinspires.ftc.teamcode.util.events.*;
 
 @Autonomous(name="ArmTest",group="Autonomi")
 public class ArmTest extends OpMode {
@@ -15,12 +13,13 @@ public class ArmTest extends OpMode {
     public void init() {
         robot = new TritonRobot(hardwareMap);
         linearProcessor = new LinearProcessor(
-                new ArmRotation(17, robot),
-                new ArmExtension(-3571, robot),
-                new ArmRotation(50, robot),
-                new ArmExtension(0, robot),
-                new ArmRotation(25, robot),
-                new ArmExtension(-1000, robot)
+                new ParallelProcessor(
+                        new ArmExtension(-3571, robot),
+                        new ArmRotation(17, robot),
+                        new DriveForward(12, robot)
+                ),
+                new ArmExtension(0, robot)
+                //new ArmExtension(-3571, robot),
                 //new ArmExtensionDown(0, robot)
         );
     }

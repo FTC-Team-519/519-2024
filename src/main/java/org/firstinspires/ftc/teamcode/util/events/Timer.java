@@ -6,9 +6,10 @@ public class Timer implements Event {
 
     Timer(long miliSeconds) {
         ms =  miliSeconds;
+    }
+    public void init() {
         startTime = System.currentTimeMillis();
     }
-    public void init() {}
     public void run() {}
     public void shutdown() {}
     public boolean isDone() {

@@ -21,13 +21,20 @@ public class IntakePiece implements Event{
     }
 
     @Override
-    public void init() {}
+    public void init() {
+        if (this.timer != null) {
+            this.timer.init();
+            robot.setIntakePower(-speed);
+        }else{
+            robot.setIntakePower(speed);
+        }
+    }
 
     @Override
     public void run() {
         if (intake) {
+            robot.setIntakePower(speed);
             if (curr_samples < SAMPLECOUNT) {
-                robot.setIntakePower(speed);
                 if (robot.doesIntakeContainPiece(3.0)) {
                     curr_samples+=1;
                 }
@@ -37,12 +44,18 @@ public class IntakePiece implements Event{
         }else{
             this.timer.run();
             robot.setIntakePower(-speed);
+            if (this.timer.isDone()){
+                robot.setIntakePower(0.0);
+            }
         }
     }
 
     @Override
     public void shutdown() {
         robot.setIntakePower(0.0);
+        if (this.timer != null) {
+            this.timer.shutdown();
+        }
     }
 
     @Override

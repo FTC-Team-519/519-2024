@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.util.TritonRobot;
 public class IntakePiece implements Event{
     private TritonRobot robot;
     final int SAMPLECOUNT = 10;
-    private int curr_samples = 0;
+    public int curr_samples = 0;
     private double speed;
     private boolean intake;
     private Timer timer = null;
@@ -29,7 +29,7 @@ public class IntakePiece implements Event{
             if (curr_samples < SAMPLECOUNT) {
                 robot.setIntakePower(speed);
                 if (robot.doesIntakeContainPiece(3.0)) {
-                    curr_samples++;
+                    curr_samples+=1;
                 }
             } else {
                 robot.setIntakePower(0.0);

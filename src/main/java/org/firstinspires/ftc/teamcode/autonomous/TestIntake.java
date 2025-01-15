@@ -11,11 +11,13 @@ import org.firstinspires.ftc.teamcode.util.events.ZeroArmAngle;
 public class TestIntake extends OpModeBase {
     private boolean buttonAPressed = false;
     private LinearProcessor linProcess = null;
+    private IntakePiece intake ;
 
     @Override
     public void init() {
         super.init();
-        this.linProcess = new LinearProcessor(new IntakePiece(this.robot,1.0, true), new IntakePiece(this.robot,1.0, false));
+        this.intake = new IntakePiece(this.robot,1.0, true);
+        this.linProcess = new LinearProcessor(this.intake, new IntakePiece(this.robot,1.0, false));
     }
 
     @Override
@@ -24,11 +26,12 @@ public class TestIntake extends OpModeBase {
             linProcess.run();
         }
         linProcess.shutdown();
-
+        telemetry.addData("samples gained:", intake.curr_samples);
         if (!this.buttonAPressed && gamepad1.a){
             return;
         }
 
         this.buttonAPressed = gamepad1.a;
+        telemetry.update();
     }
 }

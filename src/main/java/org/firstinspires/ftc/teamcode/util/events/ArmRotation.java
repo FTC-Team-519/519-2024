@@ -27,10 +27,10 @@ public class ArmRotation implements Event {
     //    @Override
     public void run() {
         if(targetVoltage< robot.readAbsoluteEncoderValue()){
-            robot.setArmRotatePower(0.5);
+            robot.setArmRotatePower(1);
         }
         else if(targetVoltage> robot.readAbsoluteEncoderValue()){
-            robot.setArmRotatePower(-0.5);
+            robot.setArmRotatePower(-1);
         }
     }
 

@@ -9,6 +9,7 @@ public class ArmExtension implements Event {
     private double desiredPosition;
     private double startingPosition;
 
+    //maximum -3571
     public ArmExtension(double position, TritonRobot robot) {
         // init robot
         this.robot = robot;

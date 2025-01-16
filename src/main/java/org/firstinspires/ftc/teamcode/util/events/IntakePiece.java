@@ -24,9 +24,6 @@ public class IntakePiece implements Event{
     public void init() {
         if (this.timer != null) {
             this.timer.init();
-            robot.setIntakePower(-speed);
-        }else{
-            robot.setIntakePower(speed);
         }
     }
 

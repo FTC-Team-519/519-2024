@@ -15,6 +15,7 @@ public class TestZeroArm extends OpModeBase {
     public void init() {
         super.init();
         this.linProcess = new LinearProcessor(new ZeroArmAngle(this.robot));
+        linProcess.init();
     }
 
     @Override

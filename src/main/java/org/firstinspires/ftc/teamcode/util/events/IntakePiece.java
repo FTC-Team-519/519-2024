@@ -10,7 +10,7 @@ public class IntakePiece implements Event{
     private boolean intake;
     private Timer timer = null;
 
-    //speed should be positive
+    //speed should be positive, intake is true, outtake is false
     public IntakePiece(TritonRobot robot, double speed, boolean intake) {
         this.robot = robot;
         this.speed = speed;
@@ -60,7 +60,6 @@ public class IntakePiece implements Event{
 
     @Override
     public boolean isDone() {
-        this.shutdown();
         if (!this.intake){
             return timer.isDone();
         }

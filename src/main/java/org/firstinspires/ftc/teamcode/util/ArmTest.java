@@ -14,8 +14,7 @@ public class ArmTest extends OpMode {
         robot = new TritonRobot(hardwareMap);
         linearProcessor = new LinearProcessor(
                 new ParallelProcessor(
-                        new ArmExtension(-3571, robot),
-                        new ArmRotation(17, robot),
+                        new ArmPositionForBucket(robot),
                         new DriveForward(12, robot)
                 ),
                 new ArmExtension(0, robot)

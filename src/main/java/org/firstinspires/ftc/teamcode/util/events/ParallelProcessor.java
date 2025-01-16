@@ -8,8 +8,7 @@ public class ParallelProcessor implements Event {
     // Removes event from events when event.isDone()==true
 
 
-    ArrayList<Event> events;
-
+    ArrayList<Event> events = new ArrayList<>();
     public ParallelProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
@@ -29,16 +28,19 @@ public class ParallelProcessor implements Event {
 
             if(! curEvent.isDone()) {
                 curEvent.run();
-                if(curEvent.isDone()) {
-                    curEvent.shutdown();
-                    events.remove(i);
-                    i--;
-                }
+            } else {
+                curEvent.shutdown();
+                events.remove(i);
+                i--;
             }
         }
     }
 
-    public void shutdown() {}
+    public void shutdown() {
+        for (Event curEvent: events) {
+            curEvent.shutdown();
+        }
+    }
 
     public boolean isDone() {
         return events.isEmpty();

@@ -11,18 +11,18 @@ public class PreloadPieceScore extends OpModeBase {
     @Override
     public void init() {
         super.init();
-        this.linProcess = new LinearProcessor(
-                new ParallelProcessor(
-                        new ArmRotation(17.0, this.robot),
-                        new DriveSideways(-6.0, this.robot)
-                ),
+        this.linProcess = new LinearProcessor(new ParallelProcessor(
+            new ArmRotation(17.0, this.robot),
+            new LinearProcessor(
+                new DriveSideways(6.0, this.robot),
                 new DriveForward(6.0, this.robot),
                 new ParallelProcessor(
-                        //new RotateInPlace(17.0, this.robot), //if this was real it would work. Trust. - abdul
-                        new ArmExtension(-3570.0, this.robot)
+                    //new RotateInPlace(17.0, this.robot), //if this was real it would work. Trust. - abdul
+                    new ArmExtension(-3570.0, this.robot)
                 ),
                 new IntakePiece(this.robot,1.0, false)
-        );
+            )
+        ));
         this.linProcess.init();
     }
 

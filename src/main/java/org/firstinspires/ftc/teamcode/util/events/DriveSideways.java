@@ -7,7 +7,7 @@ public class DriveSideways implements Event {
     private double distance;
     private TritonRobot robot;
 
-    //drive left is positve <- mathew said this
+    //drive left is Negative <- mathew said this after he was wrong the first time
     public DriveSideways(double inches, TritonRobot robot) {
         distance = inches*TritonRobot.getCountsPerInchForDriveMotors();
 

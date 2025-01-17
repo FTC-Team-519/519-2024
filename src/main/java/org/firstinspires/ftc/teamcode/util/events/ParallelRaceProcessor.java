@@ -9,7 +9,7 @@ public class ParallelRaceProcessor implements Event {
     ArrayList<Event> events;
     boolean finished = false;
 
-    ParallelRaceProcessor(Event... tasks) {
+    public ParallelRaceProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
     }

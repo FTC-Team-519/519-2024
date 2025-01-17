@@ -17,9 +17,10 @@ public class PreloadPieceScore extends OpModeBase {
                 new DriveSideways(6.0, this.robot),
                 new DriveForward(6.0, this.robot),
                 new ParallelProcessor(
-                    //new RotateInPlace(17.0, this.robot), //if this was real it would work. Trust. - abdul
+                    //new Rotate(-45.0, false, this.robot),
                     new ArmExtension(-3570.0, this.robot)
                 ),
+                new DriveForward(2.0, this.robot),
                 new IntakePiece(this.robot,1.0, false)
             )
         ));

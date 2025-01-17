@@ -16,8 +16,8 @@ public class DriveTest extends OpMode {
     public void init() {
         robot = new TritonRobot(hardwareMap);
         linearProcessor = new LinearProcessor(
-                new Rotate(90, true, 0.5, robot)
-                //new ArmExtensionDown(0, robot)
+                new Rotate(90, true, 0.5, robot),
+                new Rotate(90, false, 0.5, robot)
         );
     }
     @Override

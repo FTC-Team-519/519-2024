@@ -23,16 +23,16 @@ public class DriveSideways implements Event {
 
     public void run() {
         if(distance>0) {
-            this.robot.getFrontLeft().setPower(0.5);
-            this.robot.getFrontRight().setPower(-0.5);
-            this.robot.getBackLeft().setPower(-0.5);
-            this.robot.getBackRight().setPower(0.5);
+            this.robot.getFrontLeft().setPower(1.0);
+            this.robot.getFrontRight().setPower(-1.0);
+            this.robot.getBackLeft().setPower(-1.0);
+            this.robot.getBackRight().setPower(1.0);
         }
         else if(distance<0) {
-            this.robot.getFrontLeft().setPower(-0.5);
-            this.robot.getFrontRight().setPower(0.5);
-            this.robot.getBackLeft().setPower(0.5);
-            this.robot.getBackRight().setPower(-0.5);
+            this.robot.getFrontLeft().setPower(-1.0);
+            this.robot.getFrontRight().setPower(1.0);
+            this.robot.getBackLeft().setPower(1.0);
+            this.robot.getBackRight().setPower(-1.0);
         }
     }
 

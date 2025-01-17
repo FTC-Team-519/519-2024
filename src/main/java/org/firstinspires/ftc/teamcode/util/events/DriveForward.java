@@ -22,7 +22,7 @@ public class DriveForward implements Event {
     }
 //    @Override
     public void run() {
-        this.robot.setAllDrivePower(0.5);
+        this.robot.setAllDrivePower(1.0);
     }
 
     public void shutdown() {

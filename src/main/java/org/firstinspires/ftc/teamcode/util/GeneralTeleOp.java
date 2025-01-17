@@ -9,7 +9,7 @@ import java.lang.Math;
 public class GeneralTeleOp extends OpModeBase{
     @Override
     public void loop() {
-
+        telemetry.addData("Left Spool Readout: ",robot.getCurrentLeftSpoolPosition());
         // This section should return the current voltage
         telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
         telemetry.addData("Degree From Back: ",robot.readAbsoluteEncoderValueAsDegrees());

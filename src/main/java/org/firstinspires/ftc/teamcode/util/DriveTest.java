@@ -16,13 +16,15 @@ public class DriveTest extends OpMode {
     public void init() {
         robot = new TritonRobot(hardwareMap);
         linearProcessor = new LinearProcessor(
-                new Rotate(90, true, robot)
+                new Rotate(90, true, 0.5, robot)
                 //new ArmExtensionDown(0, robot)
         );
     }
     @Override
     public void loop() {
             linearProcessor.run();
+            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", robot.getYaw());
+            telemetry.update();
             if(linearProcessor.isDone()){
                 telemetry.addLine("Robot Is Finished With Task");
                 telemetry.update();

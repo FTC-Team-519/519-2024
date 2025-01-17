@@ -2,17 +2,18 @@ package org.firstinspires.ftc.teamcode.util.events;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.util.TritonRobot;
+
 //CLOCKWISE IS NEGATIVE IMU, positive boolean is clockwise, negative is counterclockwise
 public class Rotate implements Event {
-    private double targetAngle;
-    private double startingAngle;
-    private boolean direction;
+    private double absTargetAngle;
+    private boolean isClockwise;
     private TritonRobot robot;
+    private double startSpeed;
 
-    public Rotate(double angle, boolean direction, TritonRobot robot) {
-        this.targetAngle = angle;
-        startingAngle = robot.getYaw();
-        this.direction = direction;
+    public Rotate(double angle, boolean isClockwise, double speed, TritonRobot robot) {
+        this.absTargetAngle = Math.abs(angle);
+        this.isClockwise = isClockwise;
+        startSpeed = speed;
         // init robot
         this.robot = robot;
 
@@ -20,16 +21,16 @@ public class Rotate implements Event {
 
     public void init() {
         this.robot.setDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.resetYaw();
 
     }
 
     public void run() {
-
-        if(!direction) {
-            robot.rotateCounterClockwise(0.5);
+        if(!isClockwise) {
+            robot.rotateCounterClockwise(0.2);
         }
         else {
-            robot.rotateClockwise(0.5);
+            robot.rotateClockwise(0.2);
         }
     }
 
@@ -41,14 +42,6 @@ public class Rotate implements Event {
     }
 
     public boolean isDone() {
-        if(!direction && targetAngle>0){
-            return robot.getYaw() <= targetAngle && robot.getYaw()>0;
-        } else if(direction && targetAngle<0) {
-            return robot.getYaw() >=targetAngle && robot.getYaw()<0;
-        } else if(direction && targetAngle>0){
-            return robot.getYaw() >= targetAngle;
-        } else {
-            return robot.getYaw() <= targetAngle;
-        }
+        return (Math.abs(robot.getYaw()) >= absTargetAngle);
     }
 }

@@ -125,8 +125,13 @@ public class TritonRobot {
     }
 
     public void setArmRotatePower(double power){
-        this.leftArmMotor.setPower(power);
-        this.rightArmMotor.setPower(power);
+        if((power>0 && !touchingBack()) || (power<0 && !touchingFront())) {
+            this.leftArmMotor.setPower(power);
+            this.rightArmMotor.setPower(power);
+        } else  {
+            this.leftArmMotor.setPower(0.0);
+            this.rightArmMotor.setPower(0.0);
+        }
     }
     /*
     public void setArmTargetPosition(int position) {

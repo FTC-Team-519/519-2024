@@ -16,6 +16,7 @@ public class DriveForward implements Event {
     }
 
     public void init() {
+        this.robot.setDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.robot.setDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.robot.setDriveTargetPosition((int)distance);
     }

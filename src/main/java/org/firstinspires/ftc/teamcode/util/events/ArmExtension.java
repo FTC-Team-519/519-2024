@@ -9,7 +9,7 @@ public class ArmExtension implements Event {
     private double desiredPosition;
     private double startingPosition;
 
-    //maximum -3571
+    //maximum -4572
     public ArmExtension(double position, TritonRobot robot) {
         // init robot
         this.robot = robot;
@@ -31,10 +31,10 @@ public class ArmExtension implements Event {
     // Left max is -3571
     public void run() {
         if(extending()) {
-            this.robot.setSpoolPower(-0.5);
+            this.robot.setSpoolPower(-1);
         }
         else {
-            this.robot.setSpoolPower(0.5);
+            this.robot.setSpoolPower(1);
         }
     }
 

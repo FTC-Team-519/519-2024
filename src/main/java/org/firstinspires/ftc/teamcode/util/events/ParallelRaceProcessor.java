@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class ParallelRaceProcessor implements Event {
     // Runs all simultaneously first done isDone
 
-    ArrayList<Event> events;
+    ArrayList<Event> events = new ArrayList<>();
     boolean finished = false;
 
     public ParallelRaceProcessor(Event... tasks) {

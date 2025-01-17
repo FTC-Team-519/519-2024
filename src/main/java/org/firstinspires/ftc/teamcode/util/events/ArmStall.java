@@ -28,7 +28,9 @@ public class ArmStall implements Event{
 
     //    @Override
     public void run() {
-        if (!at_position){
+        if (this.checkTouchSensor()){
+            //noop
+        }else if (!at_position){
             if(targetVoltage< robot.readAbsoluteEncoderValue()){
                 robot.setArmRotatePower(1);
             }

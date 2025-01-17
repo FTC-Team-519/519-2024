@@ -27,14 +27,14 @@ public class Rotate implements Event {
 
     public void run() {
         if(!isClockwise) {
-            if(Math.abs(robot.getYaw())+3 >= absTargetAngle) {
+            if(Math.abs(robot.getYaw())+10 >= absTargetAngle) {
                 robot.rotateCounterClockwise(startSpeed / 2);
             } else {
                 robot.rotateCounterClockwise(startSpeed);
             }
         }
         else {
-            if(Math.abs(robot.getYaw())+3 >= absTargetAngle){
+            if(Math.abs(robot.getYaw())+10 >= absTargetAngle){
                 robot.rotateClockwise(startSpeed/2.0);
             } else {
                 robot.rotateClockwise(startSpeed);

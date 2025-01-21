@@ -15,7 +15,7 @@ public class ArmPositionForBucket implements Event{
     public void init() {
          parallelProcessor = new ParallelProcessor(
                 new ArmRotation(17, this.robot),
-                new ArmExtension(-3157, this.robot)
+                new ArmExtension(-3157, 1, this.robot)
         );
          parallelProcessor.init();
     }

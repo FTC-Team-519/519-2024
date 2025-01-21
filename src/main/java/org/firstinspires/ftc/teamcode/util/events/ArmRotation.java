@@ -40,6 +40,7 @@ public class ArmRotation implements Event {
     }
 
     private boolean checkTouchSensor(){
+//        return robot.touchingBack() || robot.touchingFront();
         if(targetVoltage< startingPosition){
             return robot.touchingBack();
         }

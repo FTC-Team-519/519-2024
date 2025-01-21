@@ -68,7 +68,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
  *
  * The rotational velocities should follow the change in corresponding axes.
  */
-
+@Disabled
 @TeleOp(name="IMU test", group="Concept")
 //@Disabled
 public class IMUtest extends LinearOpMode {

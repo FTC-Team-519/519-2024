@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.util.events.ArmExtension;
 import org.firstinspires.ftc.teamcode.util.events.ArmRotation;
 import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
 import org.firstinspires.ftc.teamcode.util.events.Rotate;
 
+@Disabled
 @Autonomous(name="Drive Test",group="Autonomi")
 public class DriveTest extends OpMode {
     TritonRobot robot;

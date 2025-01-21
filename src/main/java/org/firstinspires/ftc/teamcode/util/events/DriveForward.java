@@ -22,7 +22,11 @@ public class DriveForward implements Event {
     }
 //    @Override
     public void run() {
-        this.robot.setAllDrivePower(1.0);
+        if(distance>=0) {
+            this.robot.setAllDrivePower(1.0);
+        } else {
+            this.robot.setAllDrivePower(-1.0);
+        }
     }
 
     public void shutdown() {
@@ -33,6 +37,10 @@ public class DriveForward implements Event {
 
 //    @Override
     public boolean isDone() {
-        return robot.atDriveTargetPositionForward();
+        if(distance>=0) {
+            return robot.atDriveTargetPosition(true);
+        } else {
+            return robot.atDriveTargetPosition(false);
+        }
     }
 }

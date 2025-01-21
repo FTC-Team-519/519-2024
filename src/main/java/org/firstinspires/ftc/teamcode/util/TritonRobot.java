@@ -268,6 +268,13 @@ public class TritonRobot {
                 rightSpool.getCurrentPosition() <= rightSpool.getTargetPosition());
     }
 
+    //THIS MIGHT BE WRONG, USE CAUTION!!!!!!!!
+    public void resetSpoolEncoders() {
+        setSpoolMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setSpoolMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    //CAUTION ^^^
+
     public boolean atSpoolPositionLow() {
         return(leftSpool.getCurrentPosition() >= leftSpool.getTargetPosition() &&
                 rightSpool.getCurrentPosition() >= rightSpool.getTargetPosition());

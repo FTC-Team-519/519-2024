@@ -102,7 +102,7 @@ public class GeneralTeleOp extends OpModeBase{
     public void arm() {
         // This section sets the arm rotation motors based on the bumpers (right is down, left is up)
         // It also incorporates the touch sensors in an effort to stop the driver from destroying the robot
-        double armDriveSpeed = 0.5;
+        double armDriveSpeed = 0.65;
 
         double armMotorPower;
         double rightGiven = 0.0;

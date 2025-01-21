@@ -48,7 +48,7 @@ public class OneSampleHighBasket extends OpModeBase {
                            new ArmExtension(-50, 1, this.robot)
                 ),
                 new ParallelRaceProcessor(
-                    new ArmExtension(-3512, 0.2, this.robot),
+                    new ArmExtension(-3512, 0.4, this.robot),
                     new IntakePiece(this.robot, 1.0, true)
                 ),
                 // Time out for retrackt
@@ -79,7 +79,7 @@ public class OneSampleHighBasket extends OpModeBase {
                         new ArmExtension(-50, 1, this.robot)
                 ),
                 new ParallelRaceProcessor(
-                        new ArmExtension(-3512, 0.2, this.robot),
+                        new ArmExtension(-3512, 0.4, this.robot),
                         new IntakePiece(this.robot, 1.0, true)
                 ),
                 new ArmExtension(-50, 1, this.robot)

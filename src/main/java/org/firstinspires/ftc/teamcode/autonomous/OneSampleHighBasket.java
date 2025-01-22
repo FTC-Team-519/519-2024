@@ -72,20 +72,15 @@ public class OneSampleHighBasket extends OpModeBase {
                 new DriveForward(-1.5, this.robot),
                 new Rotate(degreesToSecondSample, true, 0.75, this.robot),
                 new ParallelRaceProcessor(
-                        new ParallelProcessor(
-                                new ArmRotation(70.0, this.robot)
-
-                        ),
+                        new ArmRotation(70.0, this.robot),
                         new ArmExtension(-50, 1, this.robot)
                 ),
+                new ArmRotation(70.0, this.robot),
                 new ParallelRaceProcessor(
                         new ArmExtension(-3512, 0.75, this.robot),
                         new IntakePiece(this.robot, 1.0, true)
                 ),
-                new ArmExtension(-50, 1, this.robot),
-                new Rotate(-30.0, false, 1.0, this.robot),
-                new Rotate(degreesToSecondSample, true, 0.75, this.robot),
-                new ArmExtension(-4000, 1, this.robot)
+                new ArmExtension(-50, 1, this.robot)
             )
 
         );

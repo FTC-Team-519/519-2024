@@ -104,5 +104,6 @@ public class OneSampleHighBasket extends OpModeBase {
         // This section should return the current voltage
         telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
         telemetry.addData("Degree From Back: ",robot.readAbsoluteEncoderValueAsDegrees());
+        telemetry.update();
     }
 }

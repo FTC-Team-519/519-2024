@@ -10,12 +10,20 @@ public class ArmRotation implements Event {
     private double startingPosition;
     private TritonRobot robot;
 
+    private double armSpeed = 1.0;
+
     public ArmRotation(double targetAngle, TritonRobot robot) {
         targetVoltage = targetAngle/81.1785929;
-
         // init robot
         this.robot = robot;
     }
+
+    public ArmRotation(double targetAngle, TritonRobot robot, double speed) {
+        armSpeed = speed;
+        targetVoltage = targetAngle/81.1785929;
+        this.robot = robot;
+    }
+
 
     @Override
     public void init() {
@@ -27,10 +35,10 @@ public class ArmRotation implements Event {
     //    @Override
     public void run() {
         if(targetVoltage< robot.readAbsoluteEncoderValue()){
-            robot.setArmRotatePower(1);
+            robot.setArmRotatePower(armSpeed);
         }
         else if(targetVoltage> robot.readAbsoluteEncoderValue()){
-            robot.setArmRotatePower(-1);
+            robot.setArmRotatePower(-armSpeed);
         }
     }
 

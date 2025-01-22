@@ -16,20 +16,22 @@ public class OneSpecimenFromHeadOnRightBound extends OpModeBase {
                 new DriveForward(25.0d, this.robot),
                 new ArmRotation(17.0d, this.robot),
                 new ParallelRaceProcessor(
-                        new ArmExtension(-1800.0, 1, this.robot),
+                        new ArmExtension(-1700.0, 1, this.robot),
                         new ArmStall(17.0d, this.robot)
 
                 ),
                 new ParallelProcessor(
-                        new ArmRotation(25.0,this.robot),
+                        new ArmRotation(24.2,this.robot,0.5),
                         new DriveForward(2.0d,this.robot)),
+                new Timer(1000),
                 new ParallelProcessor(
-                        new IntakePiece(this.robot, 0.7, false),
-                        new ArmExtension(0, 1, this.robot)
+                        new IntakePiece(this.robot, 0.25, false),
+                        new ArmExtension(0, 1, this.robot),
+                        new ArmRotation(24.2,this.robot,0.6)
                 ),
-                new DriveForward(-27.0d,this.robot),
-                new DriveSideways(52,this.robot),
-                new DriveForward(-3.0d,this.robot)
+                new DriveForward(-25.0d,this.robot),
+                new DriveSideways(60,this.robot),
+                new DriveForward(-4.0d,this.robot)
         );
         linearProcessor.init();
     }

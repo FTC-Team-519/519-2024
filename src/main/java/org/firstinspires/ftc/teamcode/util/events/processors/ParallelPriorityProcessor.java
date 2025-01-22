@@ -9,7 +9,7 @@ public class ParallelPriorityProcessor implements Event {
     ArrayList<Event> events = new ArrayList<>();
     private boolean finished = false;
 
-    public ParallelRaceProcessor(Event... tasks) {
+    public ParallelPriorityProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
     }

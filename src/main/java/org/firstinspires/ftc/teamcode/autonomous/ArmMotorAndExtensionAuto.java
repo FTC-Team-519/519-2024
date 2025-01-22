@@ -106,7 +106,7 @@ public class ArmMotorAndExtensionAuto extends OpMode {
                 setPower(0.0);
                 break;
             }
-            case default: {
+            default: {
                 setPower(0.0);
             }
         }

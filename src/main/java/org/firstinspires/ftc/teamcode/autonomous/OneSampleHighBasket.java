@@ -10,14 +10,14 @@ public class OneSampleHighBasket extends OpModeBase {
     private LinearProcessor linProcess = null;
 
     private final double degreesToFirstSample = 128;
-    private final double degreesToSecondSample = 100;
+    private final double degreesToSecondSample = 110;
 
     @Override
     public void init() {
         ///robot.resetSpoolEncoders();
         super.init();
         this.linProcess = new LinearProcessor(
-                // Put preloaded sample in highbasket
+                // Put preloaded sample in high basket
             new ParallelRaceProcessor(
                 new ArmStall(17, this.robot),
                 new LinearProcessor(
@@ -28,7 +28,7 @@ public class OneSampleHighBasket extends OpModeBase {
                         new ArmExtension(-4000, 1, this.robot)
                     ),
                         new DriveSideways(7.0, this.robot),
-                        new DriveForward(2.0, this.robot),
+                        new DriveForward(1.75, this.robot),
 
 
                     new IntakePiece(this.robot,1.0, false),
@@ -48,10 +48,10 @@ public class OneSampleHighBasket extends OpModeBase {
                            new ArmExtension(-50, 1, this.robot)
                 ),
                 new ParallelRaceProcessor(
-                    new ArmExtension(-3512, 0.4, this.robot),
+                    new ArmExtension(-3300, 0.8, this.robot),
                     new IntakePiece(this.robot, 1.0, true)
                 ),
-                // Time out for retrackt
+                // Time out for retract
                 new ParallelRaceProcessor(
                     new ArmExtension(-40, 1, this.robot),
                     new Timer(2000)
@@ -63,7 +63,7 @@ public class OneSampleHighBasket extends OpModeBase {
                new LinearProcessor(
                    new Rotate(degreesToFirstSample, false, 0.75, this.robot),
                    new ArmExtension(-4000, 1, this.robot),
-                   new DriveForward(1.5, this.robot),
+                   new DriveForward(1.25, this.robot),
                    new IntakePiece(this.robot, 1.0, false)
                )
            ),
@@ -79,10 +79,13 @@ public class OneSampleHighBasket extends OpModeBase {
                         new ArmExtension(-50, 1, this.robot)
                 ),
                 new ParallelRaceProcessor(
-                        new ArmExtension(-3512, 0.4, this.robot),
+                        new ArmExtension(-3512, 0.75, this.robot),
                         new IntakePiece(this.robot, 1.0, true)
                 ),
-                new ArmExtension(-50, 1, this.robot)
+                new ArmExtension(-50, 1, this.robot),
+                new Rotate(-30.0, false, 1.0, this.robot),
+                new Rotate(degreesToSecondSample, true, 0.75, this.robot),
+                new ArmExtension(-4000, 1, this.robot)
             )
 
         );

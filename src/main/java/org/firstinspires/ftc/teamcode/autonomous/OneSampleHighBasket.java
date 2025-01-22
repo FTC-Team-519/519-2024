@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.util.OpModeBase;
 import org.firstinspires.ftc.teamcode.util.events.*;
+import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
+import org.firstinspires.ftc.teamcode.util.events.ParallelProcessor;
+import org.firstinspires.ftc.teamcode.util.events.ParallelRaceProcessor;
 
 @Autonomous(name = "OneSampleHighBasket", group="Linear OpMode")
 public class OneSampleHighBasket extends OpModeBase {
@@ -81,8 +84,17 @@ public class OneSampleHighBasket extends OpModeBase {
                         new IntakePiece(this.robot, 1.0, true)
                 ),
                 new ArmExtension(-50, 1, this.robot)
-            )
+            ),
 
+            new ParallelRaceProcessor(
+                    new ArmStall(17, this.robot),
+                    new LinearProcessor(
+                            new Rotate(degreesToSecondSample, false, 0.75, this.robot),
+                            new ArmExtension(-4000, 1, this.robot),
+                            new DriveForward(1.25, this.robot),
+                            new IntakePiece(this.robot, 1.0, false)
+                    )
+            )
         );
         this.linProcess.init();
         this.robot.setSpoolMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -7,21 +7,11 @@ public class ParallelPriorityProcessor implements Event {
     // Runs all simultaneously first done isDone
 
     ArrayList<Event> events = new ArrayList<>();
-    private int numberOfImportantEvents;
     private boolean finished = false;
 
     public ParallelRaceProcessor(Event... tasks) {
         // adds tasks to events
         events.addAll(Arrays.asList(tasks));
-
-        numberOfImportantEvents = 1;
-    }
-
-    public ParallelRaceProcessor(int importantEvents, Event... tasks) {
-        // adds tasks to events
-        events.addAll(Arrays.asList(tasks));
-
-        numberOfImportantEvents = importantEvents;
     }
 
     public void init() {
@@ -40,12 +30,8 @@ public class ParallelPriorityProcessor implements Event {
             curEvent.run();
         }
 
-        finished = true;
-        for (int i = 0; i < numberOfImportantEvents; i++) {
-            if(! events[i].isDone()) {
-                finished =false;
-                return;
-            }
+        if (events.get(0).isDone()) {
+            finished = true;
         }
     }
 

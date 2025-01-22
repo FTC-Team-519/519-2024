@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.util;
 
 import android.graphics.Color;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +40,8 @@ public class TritonRobot {
     ArrayList<DcMotor> motors;
 
     AnalogInput potentiometer = null;
+
+    IMU imu;
 
     public enum SampleColor {
         RED,
@@ -90,6 +94,8 @@ public class TritonRobot {
 
         potentiometer = hardwareMap.get(AnalogInput.class,"potentiometer");
 
+        imu = hardwareMap.get(IMU.class, "imu");
+        imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT)));
 
         motors = new ArrayList<DcMotor>();
         motors.addAll(Arrays.asList(frontLeft,frontRight,backLeft,backRight,rightArmMotor,leftArmMotor,rightSpool,leftSpool));
@@ -98,6 +104,20 @@ public class TritonRobot {
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
     }
+    //IMU
+    public YawPitchRollAngles getOrientation(){
+        assert imu != null;
+        return imu.getRobotYawPitchRollAngles();
+    }
+
+    public double getYaw(){
+        return getOrientation().getYaw();
+    }
+
+    public void resetYaw(){
+        imu.resetYaw();
+    }
+
     //arm rotation motor stuff
     public void setArmRotateMode(DcMotor.RunMode runMode){
         this.leftArmMotor.setMode(runMode);
@@ -105,8 +125,13 @@ public class TritonRobot {
     }
 
     public void setArmRotatePower(double power){
-        this.leftArmMotor.setPower(power);
-        this.rightArmMotor.setPower(power);
+        if((power>0 && !touchingBack()) || (power<0 && !touchingFront())) {
+            this.leftArmMotor.setPower(power);
+            this.rightArmMotor.setPower(power);
+        } else  {
+            this.leftArmMotor.setPower(0.0);
+            this.rightArmMotor.setPower(0.0);
+        }
     }
     /*
     public void setArmTargetPosition(int position) {
@@ -173,6 +198,23 @@ public class TritonRobot {
         backRight.setTargetPosition(position);
     }
 
+    public void rotateClockwise(double speed) {
+        frontLeft.setPower(speed);
+        frontRight.setPower(-speed);
+        backLeft.setPower(speed);
+        backRight.setPower(-speed);
+    }
+
+    public void rotateCounterClockwise(double speed) {
+        frontLeft.setPower(-speed);
+        frontRight.setPower(speed);
+        backLeft.setPower(-speed);
+        backRight.setPower(speed);
+    }
+
+
+
+
     public boolean atDriveTargetPosition(boolean isGoingForward) {
         if (isGoingForward) {
             return atDriveTargetPositionForward();
@@ -225,6 +267,13 @@ public class TritonRobot {
         return(leftSpool.getCurrentPosition() <= leftSpool.getTargetPosition() &&
                 rightSpool.getCurrentPosition() <= rightSpool.getTargetPosition());
     }
+
+    //THIS MIGHT BE WRONG, USE CAUTION!!!!!!!!
+    public void resetSpoolEncoders() {
+        setSpoolMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setSpoolMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    //CAUTION ^^^
 
     public boolean atSpoolPositionLow() {
         return(leftSpool.getCurrentPosition() >= leftSpool.getTargetPosition() &&

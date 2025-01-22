@@ -9,7 +9,7 @@ import java.lang.Math;
 public class GeneralTeleOp extends OpModeBase{
     @Override
     public void loop() {
-
+        telemetry.addData("Left Spool Readout: ",robot.getCurrentLeftSpoolPosition());
         // This section should return the current voltage
         telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
         telemetry.addData("Degree From Back: ",robot.readAbsoluteEncoderValueAsDegrees());
@@ -102,7 +102,7 @@ public class GeneralTeleOp extends OpModeBase{
     public void arm() {
         // This section sets the arm rotation motors based on the bumpers (right is down, left is up)
         // It also incorporates the touch sensors in an effort to stop the driver from destroying the robot
-        double armDriveSpeed = 0.5;
+        double armDriveSpeed = 0.65;
 
         double armMotorPower;
         double rightGiven = 0.0;
@@ -147,7 +147,11 @@ public class GeneralTeleOp extends OpModeBase{
                 spoolPower = spoolMaxPower/4;
             }
         }
-
+        if(armAngle > 22) {
+            if(spoolPower < 0 && robot.leftSpool.getCurrentPosition()<-3500) {
+                spoolPower = 0;
+            }
+        }
 
 //        if(armMotorPower<0) { // going right
 //

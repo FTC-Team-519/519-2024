@@ -16,12 +16,17 @@ public class DriveForward implements Event {
     }
 
     public void init() {
+        this.robot.setDriveMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.robot.setDriveMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.robot.setDriveTargetPosition((int)distance);
     }
 //    @Override
     public void run() {
-        this.robot.setAllDrivePower(0.5);
+        if(distance>=0) {
+            this.robot.setAllDrivePower(1.0);
+        } else {
+            this.robot.setAllDrivePower(-1.0);
+        }
     }
 
     public void shutdown() {
@@ -32,6 +37,10 @@ public class DriveForward implements Event {
 
 //    @Override
     public boolean isDone() {
-        return robot.atDriveTargetPositionForward();
+        if(distance>=0) {
+            return robot.atDriveTargetPosition(true);
+        } else {
+            return robot.atDriveTargetPosition(false);
+        }
     }
 }

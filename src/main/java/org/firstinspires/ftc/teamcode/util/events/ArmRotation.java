@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.util.events;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.util.TritonRobot;
-//HIGHEST POSITION AT 17 DEGREES(0.217volts), LOWEST POSITION AT 75 DEGREES(0.93volts)
+//HIGHEST POSITION AT 15.5051 DEGREES(0.217volts), LOWEST POSITION AT 75 DEGREES(0.93volts)
 // Uses encoders
 public class ArmRotation implements Event {
     private double targetVoltage;
@@ -27,10 +27,10 @@ public class ArmRotation implements Event {
     //    @Override
     public void run() {
         if(targetVoltage< robot.readAbsoluteEncoderValue()){
-            robot.setArmRotatePower(0.5);
+            robot.setArmRotatePower(1);
         }
         else if(targetVoltage> robot.readAbsoluteEncoderValue()){
-            robot.setArmRotatePower(-0.5);
+            robot.setArmRotatePower(-1);
         }
     }
 
@@ -40,6 +40,7 @@ public class ArmRotation implements Event {
     }
 
     private boolean checkTouchSensor(){
+//        return robot.touchingBack() || robot.touchingFront();
         if(targetVoltage< startingPosition){
             return robot.touchingBack();
         }

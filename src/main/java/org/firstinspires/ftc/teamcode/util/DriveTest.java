@@ -1,0 +1,35 @@
+package org.firstinspires.ftc.teamcode.util;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.util.events.ArmExtension;
+import org.firstinspires.ftc.teamcode.util.events.ArmRotation;
+import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
+import org.firstinspires.ftc.teamcode.util.events.Rotate;
+
+@Disabled
+@Autonomous(name="Drive Test",group="Autonomi")
+public class DriveTest extends OpMode {
+    TritonRobot robot;
+    LinearProcessor linearProcessor;
+
+    @Override
+    public void init() {
+        robot = new TritonRobot(hardwareMap);
+        linearProcessor = new LinearProcessor(
+                new Rotate(90, true, 0.5, robot),
+                new Rotate(90, false, 0.5, robot)
+        );
+    }
+    @Override
+    public void loop() {
+            linearProcessor.run();
+            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", robot.getYaw());
+            telemetry.update();
+            if(linearProcessor.isDone()){
+                telemetry.addLine("Robot Is Finished With Task");
+                telemetry.update();
+            }
+    }
+}

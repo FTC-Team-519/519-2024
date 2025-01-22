@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.util.OpModeBase;
 import org.firstinspires.ftc.teamcode.util.events.IntakePiece;
 import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
 import org.firstinspires.ftc.teamcode.util.events.ZeroArmAngle;
 
+@Disabled
 @TeleOp(name = "TestIntake", group="Linear OpMode")
-//@Disabled
 public class TestIntake extends OpModeBase {
     private boolean buttonAPressed = false;
     private LinearProcessor linProcess = null;

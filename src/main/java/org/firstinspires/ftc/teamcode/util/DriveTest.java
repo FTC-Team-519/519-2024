@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.util.events.ArmExtension;
 import org.firstinspires.ftc.teamcode.util.events.ArmRotation;
-import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
+import org.firstinspires.ftc.teamcode.util.events.processors.LinearProcessor;
 import org.firstinspires.ftc.teamcode.util.events.Rotate;
 
 @Disabled

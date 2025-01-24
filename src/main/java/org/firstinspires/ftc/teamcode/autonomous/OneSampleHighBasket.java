@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.util.events.processors.*;
 public class OneSampleHighBasket extends OpModeBase {
     private LinearProcessor linProcess = null;
 
-    private final double degreesToFirstSample = 128;
-    private final double degreesToSecondSample = 110;
+    private final double degreesToFirstSample = 124;
+    private final double degreesToSecondSample = 106;
 
     @Override
     public void init() {
@@ -28,7 +28,7 @@ public class OneSampleHighBasket extends OpModeBase {
                         new Rotate(-30.0, false, 1.0, this.robot),
                         new ArmExtension(-4000, 1, this.robot)
                     ),
-                    new DriveSideways(6.0, this.robot),
+                    new DriveSideways(5.5, this.robot),
                     new DriveForward(1.75, this.robot),
 
 
@@ -42,7 +42,7 @@ public class OneSampleHighBasket extends OpModeBase {
             new LinearProcessor(
                 new Rotate(degreesToFirstSample, true, 0.75, this.robot),
                 new ParallelRaceProcessor(
-                    new ArmRotation(70.0, this.robot),
+                    new ArmRotation(71.0, this.robot),
                     new ArmExtension(-50, 1, this.robot)
                    ),
                 new ParallelRaceProcessor(

@@ -4,6 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.util.OpModeBase;
 import org.firstinspires.ftc.teamcode.util.events.*;
+import org.firstinspires.ftc.teamcode.util.events.processors.LinearProcessor;
+import org.firstinspires.ftc.teamcode.util.events.processors.ParallelProcessor;
+import org.firstinspires.ftc.teamcode.util.events.processors.ParallelRaceProcessor;
 
 @Disabled
 @Autonomous(name="SpecimenAscentZone(LEFT)",group="autonomi")

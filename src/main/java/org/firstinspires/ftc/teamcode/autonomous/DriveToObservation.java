@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.util.OpModeBase;
 import org.firstinspires.ftc.teamcode.util.events.DriveForward;
-import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
+import org.firstinspires.ftc.teamcode.util.events.processors.LinearProcessor;
 import org.firstinspires.ftc.teamcode.util.events.ZeroArmAngle;
 
 @Autonomous(name = "DriveToObservation", group="Linear OpMode")

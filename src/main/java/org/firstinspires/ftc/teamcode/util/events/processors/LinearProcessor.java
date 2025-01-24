@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode.util.events;
+package org.firstinspires.ftc.teamcode.util.events.processors;
+
+import org.firstinspires.ftc.teamcode.util.events.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class LinearProcessor implements Event{
+public class LinearProcessor implements Event {
     ArrayList<Event> events = new ArrayList<>();
     int currentEventIndex = 0;
     boolean currentEventIsInitialized = false;

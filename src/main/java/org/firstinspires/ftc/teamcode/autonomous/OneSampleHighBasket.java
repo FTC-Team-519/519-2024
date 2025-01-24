@@ -4,9 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.util.OpModeBase;
 import org.firstinspires.ftc.teamcode.util.events.*;
-import org.firstinspires.ftc.teamcode.util.events.LinearProcessor;
-import org.firstinspires.ftc.teamcode.util.events.ParallelProcessor;
-import org.firstinspires.ftc.teamcode.util.events.ParallelRaceProcessor;
+import org.firstinspires.ftc.teamcode.util.events.processors.*;
 
 @Autonomous(name = "OneSampleHighBasket", group="Linear OpMode")
 public class OneSampleHighBasket extends OpModeBase {
@@ -30,8 +28,8 @@ public class OneSampleHighBasket extends OpModeBase {
                         new Rotate(-30.0, false, 1.0, this.robot),
                         new ArmExtension(-4000, 1, this.robot)
                     ),
-                        new DriveSideways(7.0, this.robot),
-                        new DriveForward(1.75, this.robot),
+                    new DriveSideways(6.0, this.robot),
+                    new DriveForward(1.75, this.robot),
 
 
                     new IntakePiece(this.robot,1.0, false),
@@ -41,22 +39,19 @@ public class OneSampleHighBasket extends OpModeBase {
                 )
             ),
            // pick up first sample and retract arm
-           new LinearProcessor(
-                   new Rotate(degreesToFirstSample, true, 0.75, this.robot),
-                   new ParallelRaceProcessor(
-                           new ParallelProcessor(
-                                   new ArmRotation(70.0, this.robot)
-
-                           ),
-                           new ArmExtension(-50, 1, this.robot)
-                ),
+            new LinearProcessor(
+                new Rotate(degreesToFirstSample, true, 0.75, this.robot),
+                new ParallelRaceProcessor(
+                    new ArmRotation(70.0, this.robot),
+                    new ArmExtension(-50, 1, this.robot)
+                   ),
                 new ParallelRaceProcessor(
                     new ArmExtension(-3300, 0.8, this.robot),
                     new IntakePiece(this.robot, 1.0, true)
                 ),
                 // Time out for retract
                 new ParallelRaceProcessor(
-                    new ArmExtension(-40, 1, this.robot),
+                    new ArmExtension(-50, 1, this.robot),
                     new Timer(2000)
                 )
            ),
@@ -83,7 +78,10 @@ public class OneSampleHighBasket extends OpModeBase {
                         new ArmExtension(-3512, 0.75, this.robot),
                         new IntakePiece(this.robot, 1.0, true)
                 ),
-                new ArmExtension(-50, 1, this.robot)
+                new ParallelRaceProcessor(
+                        new ArmExtension(-50, 1, this.robot),
+                        new Timer(2000)
+                )
             ),
 
             new ParallelRaceProcessor(

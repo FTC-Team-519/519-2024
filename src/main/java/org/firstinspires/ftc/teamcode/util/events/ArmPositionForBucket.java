@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.util.events;
 
 import org.firstinspires.ftc.teamcode.util.TritonRobot;
+import org.firstinspires.ftc.teamcode.util.events.ParallelProcessor;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 

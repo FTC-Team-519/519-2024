@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.util.OpModeBase;
 import org.firstinspires.ftc.teamcode.util.events.*;
 import org.firstinspires.ftc.teamcode.util.events.processors.*;
@@ -10,8 +11,8 @@ import org.firstinspires.ftc.teamcode.util.events.processors.*;
 public class OneSampleHighBasket extends OpModeBase {
     private LinearProcessor linProcess = null;
 
-    private final double degreesToFirstSample = 124;
-    private final double degreesToSecondSample = 106;
+    private final double degreesToFirstSample = 128;
+    private final double degreesToSecondSample = 105;
 
     @Override
     public void init() {
@@ -29,12 +30,12 @@ public class OneSampleHighBasket extends OpModeBase {
                         new ArmExtension(-4000, 1, this.robot)
                     ),
                     new DriveSideways(5.5, this.robot),
-                    new DriveForward(1.75, this.robot),
+                    new DriveForward(2.00, this.robot),
 
 
                     new IntakePiece(this.robot,1.0, false),
 
-                    new DriveForward(-2.0, this.robot)
+                    new DriveForward(-2.5, this.robot)
                     //new ArmExtension(-50, this.robot)
                 )
             ),
@@ -42,7 +43,7 @@ public class OneSampleHighBasket extends OpModeBase {
             new LinearProcessor(
                 new Rotate(degreesToFirstSample, true, 0.75, this.robot),
                 new ParallelRaceProcessor(
-                    new ArmRotation(71.0, this.robot),
+                    new ArmRotation(69.0, this.robot),
                     new ArmExtension(-50, 1, this.robot)
                    ),
                 new ParallelRaceProcessor(
@@ -73,7 +74,7 @@ public class OneSampleHighBasket extends OpModeBase {
                         new ArmRotation(70.0, this.robot),
                         new ArmExtension(-50, 1, this.robot)
                 ),
-                new ArmRotation(70.0, this.robot),
+                new ArmRotation(69.0, this.robot),
                 new ParallelRaceProcessor(
                         new ArmExtension(-3512, 0.75, this.robot),
                         new IntakePiece(this.robot, 1.0, true)
@@ -109,6 +110,7 @@ public class OneSampleHighBasket extends OpModeBase {
         // This section should return the current voltage
         telemetry.addData("Potentiometer Output: ",robot.readAbsoluteEncoderValue());
         telemetry.addData("Degree From Back: ",robot.readAbsoluteEncoderValueAsDegrees());
+        telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", robot.getYaw());
         telemetry.update();
     }
 }

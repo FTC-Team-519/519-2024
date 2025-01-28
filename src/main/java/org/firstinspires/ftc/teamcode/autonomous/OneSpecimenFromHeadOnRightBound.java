@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.events.processors.ParallelProcessor;
 import org.firstinspires.ftc.teamcode.util.events.processors.ParallelRaceProcessor;
 
 //@Disabled
-@Autonomous(name="SpecimenObservationZone(RIGHT)",group="autonomi")
+@Autonomous(name="OneSpecimenAuto",group="autonomi")
 public class OneSpecimenFromHeadOnRightBound extends OpModeBase {
     LinearProcessor linearProcessor;
 

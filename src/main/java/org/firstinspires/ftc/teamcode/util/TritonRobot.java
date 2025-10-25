@@ -237,7 +237,7 @@ public class TritonRobot {
                 backLeft.getCurrentPosition() <= backLeft.getTargetPosition() &&
                 backRight.getCurrentPosition() <= backRight.getTargetPosition());
     }
-
+    
     // Drive for non-drive motors
 
     public void setSpoolPower(double power) {
